@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Talk to the Hand — learn your child's first signs, with a coach that watches your hands</title>
+  <meta name="description" content="A gentle webcam coach that watches your hands and shows you how to sign your child's first words — so you're not practicing alone in front of a mirror." />
+
+  <!-- Open Graph (nice link previews when shared in FB groups / Hands & Voices) -->
+  <meta property="og:title" content="Talk to the Hand — your child's first signs, coached" />
+  <meta property="og:description" content="A webcam coach that watches your hands and shows you how. For hearing parents learning to sign with their deaf child." />
+  <meta property="og:type" content="website" />
+
+  <!--
+    ============================================================================
+    DEMAND-TEST INSTRUMENTATION — plug these in at deploy (see landing/README.md)
+    1. FORM_ENDPOINT: create a free Formspree form (or Tally) and paste its URL
+       into the <form action="..."> below. It captures email + which-plan (WTP)
+       + the B2B/grant arm in ONE submit.
+    2. ANALYTICS: drop a Plausible/Umami/GA snippet here to measure
+       visits -> signups (the conversion rate the Go/Kill thresholds need).
+    3. DEMO_CLIP: replace the poster/placeholder in #demo with the ILY clip.
+    ============================================================================
+  -->
+  <!-- <script defer data-domain="YOURDOMAIN" src="https://plausible.io/js/script.js"></script> -->
+
+  <style>
+    :root {
+      --ink: #1c2230;
+      --muted: #5b6472;
+      --brand: #2f6df6;
+      --brand-dark: #1f52c9;
+      --warm: #ff8a5c;
+      --bg: #fbfaf7;
+      --card: #ffffff;
+      --line: #e7e3db;
+      --ok: #1c9c6b;
+      --radius: 16px;
+      --shadow: 0 6px 24px rgba(28,34,48,.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink); background: var(--bg);
+      font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+    h1, h2, h3 { line-height: 1.2; letter-spacing: -0.01em; }
+    a { color: var(--brand); }
+
+    /* Hero */
+    header { padding: 64px 0 40px; text-align: center; }
+    .eyebrow {
+      display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--warm); margin-bottom: 16px;
+    }
+    header h1 { font-size: clamp(30px, 5vw, 46px); margin: 0 0 16px; }
+    header h1 .accent { color: var(--brand); }
+    .sub { font-size: clamp(17px, 2.5vw, 21px); color: var(--muted); max-width: 620px; margin: 0 auto 12px; }
+    .mirror-line { font-weight: 600; color: var(--ink); margin-top: 18px; }
+    .mirror-line span { color: var(--brand); }
+
+    /* Demo slot */
+    #demo { margin: 40px auto 8px; max-width: 680px; }
+    .demo-frame {
+      position: relative; aspect-ratio: 16/9; border-radius: var(--radius);
+      background: linear-gradient(135deg, #eef3ff, #fff5ee); border: 1px solid var(--line);
+      display: grid; place-items: center; text-align: center; color: var(--muted); overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .demo-frame .badge {
+      position: absolute; top: 12px; left: 12px; background: var(--ok); color: #fff;
+      font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+    }
+    .demo-frame p { margin: 0; padding: 0 20px; }
+    .demo-frame .big { font-size: 46px; margin-bottom: 6px; }
+
+    /* Sections */
+    section { padding: 44px 0; }
+    section h2 { font-size: clamp(23px, 3.5vw, 30px); text-align: center; margin: 0 0 8px; }
+    section .lead { text-align: center; color: var(--muted); max-width: 620px; margin: 0 auto 28px; }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .step {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 22px; box-shadow: var(--shadow);
+    }
+    .step .n {
+      width: 34px; height: 34px; border-radius: 10px; background: var(--brand); color: #fff;
+      font-weight: 700; display: grid; place-items: center; margin-bottom: 12px;
+    }
+    .step h3 { margin: 0 0 6px; font-size: 18px; }
+    .step p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    /* Signup + pricing probe card */
+    #join { scroll-margin-top: 20px; }
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 32px; box-shadow: var(--shadow); max-width: 640px; margin: 0 auto;
+    }
+    .card h2 { text-align: left; }
+    label.field { display: block; font-weight: 600; margin: 18px 0 8px; }
+    input[type=email], input[type=text] {
+      width: 100%; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px;
+      font-size: 16px; background: #fff;
+    }
+    input:focus { outline: 2px solid var(--brand); border-color: var(--brand); }
+    fieldset { border: 0; padding: 0; margin: 20px 0 0; }
+    fieldset legend { font-weight: 600; padding: 0; margin-bottom: 4px; }
+    .hint { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+    .opt {
+      display: flex; align-items: flex-start; gap: 12px; border: 1px solid var(--line);
+      border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; cursor: pointer; transition: .12s;
+    }
+    .opt:hover { border-color: var(--brand); background: #f7f9ff; }
+    .opt input { margin-top: 4px; }
+    .opt .lab { font-weight: 600; }
+    .opt .desc { color: var(--muted); font-size: 14px; }
+    .opt.b2b { border-style: dashed; }
+    button.cta {
+      margin-top: 24px; width: 100%; padding: 16px; font-size: 17px; font-weight: 700;
+      color: #fff; background: var(--brand); border: 0; border-radius: 12px; cursor: pointer;
+    }
+    button.cta:hover { background: var(--brand-dark); }
+    .privacy { text-align: center; color: var(--muted); font-size: 13px; margin-top: 14px; }
+
+    /* Mission strip */
+    .mission { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .mission .wrap { padding: 40px 20px; }
+    .mission p { max-width: 680px; margin: 0 auto; text-align: center; color: var(--muted); }
+    .mission strong { color: var(--ink); }
+
+    footer { text-align: center; color: var(--muted); font-size: 13px; padding: 32px 0 48px; }
+
+    @media (max-width: 640px) {
+      .steps { grid-template-columns: 1fr; }
+      header { padding: 44px 0 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap">
+      <span class="eyebrow">For hearing parents of deaf & hard-of-hearing kids</span>
+      <h1>Learn your child's <span class="accent">first signs</span>,<br />with a coach that watches your hands</h1>
+      <p class="sub">Most parents practice ASL alone in front of a mirror — never sure if their hand is right. Talk to the Hand watches through your webcam and gently shows you <em>how</em> to fix it.</p>
+      <p class="mirror-line">Every app gives you a mirror. <span>We give you a coach.</span></p>
+    </div>
+
+    <!-- DEMO SLOT: replace with the ILY (I-love-you) clip at build time -->
+    <div class="wrap">
+      <div id="demo">
+        <div class="demo-frame">
+          <span class="badge">Live coaching</span>
+          <div>
+            <div class="big">🤟</div>
+            <p><strong>Demo clip goes here</strong><br />“I love you” — watch the coach catch the handshape and cheer you on.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- How it works -->
+  <section>
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="lead">No accounts, no downloads for the test — just your laptop camera and 60 seconds.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="n">1</div>
+          <h3>We show the sign</h3>
+          <p>Start with your child's first words — <em>mom, milk, more, I-love-you</em> — one at a time.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h3>You sign to the camera</h3>
+          <p>Your webcam reads your hand in real time. Nothing leaves your device.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h3>The coach guides you</h3>
+          <p>“So close — tuck your thumb in a little.” Encouraging, specific, never a red X.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission strip -->
+  <div class="mission">
+    <div class="wrap">
+      <p><strong>Why this matters:</strong> 9 in 10 deaf children are born to hearing parents who don't yet sign. The earlier a child has language, the better everything that follows. This is about closing that gap — <strong>practice between your mentor visits</strong>, not a replacement for Deaf teachers.</p>
+    </div>
+  </div>
+
+  <!-- Signup + pricing probe (the demand test) -->
+  <section id="join">
+    <div class="wrap">
+      <div class="card">
+        <h2>Get early access</h2>
+        <p class="hint">Be first to try it with your family. We'll email you when the beta opens — and your answers below shape what we build first.</p>
+
+        <!--
+          FORM: point action= at your Formspree/Tally endpoint (see README).
+          One submit captures: email + which-plan (consumer WTP) + the B2B/grant arm.
+        -->
+        <form action="REPLACE_WITH_FORM_ENDPOINT" method="POST">
+          <label class="field" for="email">Your email</label>
+          <input type="email" id="email" name="email" placeholder="you@email.com" required />
+
+          <fieldset>
+            <legend>If Talk to the Hand helped you sign with your child, what feels fair?</legend>
+            <p class="hint">Honest answer, not a commitment — it helps us keep it accessible.</p>
+
+            <label class="opt">
+              <input type="radio" name="plan_interest" value="free_only" required />
+              <span><span class="lab">Free only</span><br /><span class="desc">I'd use it if it's free, but wouldn't pay.</span></span>
+            </label>
+            <label class="opt">
+              <input type="radio" name="plan_interest" value="paid_9" />
+              <span><span class="lab">~$9 / month</span><br /><span class="desc">Worth a small monthly amount to me.</span></span>
+            </label>
+            <label class="opt">
+              <input type="radio" name="plan_interest" value="paid_19" />
+              <span><span class="lab">~$19 / month</span><br /><span class="desc">Worth it if it really helps us communicate.</span></span>
+            </label>
+
+            <!-- B2B / grant A/B arm (LOCKED 2026-07-13) -->
+            <label class="opt b2b">
+              <input type="radio" name="plan_interest" value="program_provided" />
+              <span><span class="lab">Through my program</span><br /><span class="desc">I'd want my early-intervention program or my child's school to provide this for free.</span></span>
+            </label>
+          </fieldset>
+
+          <button class="cta" type="submit">Join the waitlist →</button>
+          <p class="privacy">No spam. We'll only email you about early access. Unsubscribe anytime.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      Talk to the Hand · a gentle ASL coach for families · built with care, not to replace Deaf teachers
+    </div>
+  </footer>
+
+</body>
+</html>
