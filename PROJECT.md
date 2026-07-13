@@ -117,11 +117,17 @@ run in parallel.
 - **Pricing probe (the key experiment):** on/after signup, show a "Which plan interests you?" step with
   price points (e.g., Free / $9 mo / $19 mo / "I'd want it free through my early-intervention program").
   This directly tests WTP vs. the free-alternative risk.
-- **Traffic (unpaid first):** parent communities — r/deaf, r/ASL, Facebook groups for parents of deaf
-  kids, **Hands & Voices** chapters, Deaf-parenting forums. Optional small ($50–100) Meta/Reddit ad set
-  to a lookalike parent audience to get a clean conversion rate.
-- **Instrument:** track visits → signups → price-tier selection. Tool: no-code (Carrd/Framer/Tally) or
-  a one-page site; no backend needed.
+  - **B2B/grant A/B arm (LOCKED 2026-07-13):** run a second framing as an A/B arm — "sold to your
+    program, not to you" (e.g., "I'd want my early-intervention program / school to provide this").
+    One run then reads both consumer WTP *and* the "sold to programs, not parents" model, de-risking the
+    #1 WTP risk and telling us which way to pivot if consumer WTP is weak.
+- **Traffic (unpaid first, LOCKED 2026-07-13):** parent communities — r/deaf, r/ASL, Facebook groups
+  for parents of deaf kids, **Hands & Voices** chapters, Deaf-parenting forums. **Unpaid traffic runs
+  first.** Paid boost is capped at **$50–100** total (Meta/Reddit ad set to a lookalike parent audience)
+  and is spent only *after* the community-access checklist (see Open Questions) is confirmed, to get a
+  clean conversion rate.
+- **Instrument:** track visits → signups → price-tier selection. Build = a static one-page site on
+  **Netlify/Vercel** + a lean form service for capture (see §Stack decision); no backend needed.
 
 ### 2. Qualitative — 5–10 parent interviews
 - Recruit from the same communities. 15-min calls. Ask: *What do you use today? (mentor program? apps?)
@@ -136,18 +142,23 @@ run in parallel.
   handshape check (finger-extended + thumb flags) — no model training. Recommend **3–5 static
   first-signs** max (per user's choice), but 1 solid one is enough for the video.
 
-### Success metrics / kill criteria (define before running)
-- **Go signal (example):** ≥ 25–40% landing→signup among targeted parent traffic, ≥ ~100 signups in a
-  few days, and ≥ ~30% of signups selecting a **paid** tier OR ≥ half of interviewed parents expressing
-  genuine WTP despite free options.
-- **Pivot signal:** strong signups but everyone wants it *free/through their program* → validate an
-  adjacent paying segment (students/healthcare) or a B2B/grant model instead.
-- **Kill signal:** low signup AND parents uniformly satisfied with free mentors → idea (as a paid
-  consumer product for this segment) is not viable; reconsider.
+### Success metrics / kill criteria (LOCKED 2026-07-13 — measured over the 1–3 day run window)
+These are the committed bars, not illustrative. Read the outcome after the run window closes.
+- **Go signal:** ≥ **30%** landing→signup among targeted parent traffic, **≥ 100 signups** in the
+  1–3 day window, AND ≥ **30%** of signups selecting a **paid** tier — OR ≥ half of interviewed
+  parents expressing genuine WTP despite free options.
+- **Pivot signal:** strong signups but tier selection skews *free / through their program* → validate an
+  adjacent paying segment (students / healthcare / B2B-grant) instead. The pricing probe's B2B/grant
+  arm (see below) is the built-in read on which way to pivot.
+- **Kill signal:** low signup (**< ~15%** landing→signup) AND parents uniformly satisfied with free
+  mentors → idea (as a paid consumer product for this segment) is not viable; reconsider.
 
-### Stack decision — deferred/lean
-Secondary to the goal. Default: **no-code landing** (Carrd/Framer + Tally) + **optional** thin
-MediaPipe clip. Revisit a real build only *after* demand is proven.
+### Stack decision — deferred/lean (updated 2026-07-13)
+Secondary to the goal. Default: **static landing page deployed to Netlify/Vercel** (build as portable
+static files) + **optional** thin MediaPipe clip. **Data capture** = lightest form service that fits,
+chosen at build time (Tally/Formspree-class); keep it a deferred build decision, not a locked tool, and
+note in the build where the form / analytics key gets dropped in. Revisit a real backend/app only
+*after* demand is proven.
 
 ---
 
@@ -173,6 +184,16 @@ MediaPipe clip. Revisit a real build only *after* demand is proven.
 3. **Demo vocab:** 3–5 **static first-signs** (lead with ILY), used as a credibility prop only.
 4. **Stack:** lean/no-code; real build deferred until demand is proven.
 
+### Decisions locked (2026-07-13)
+5. **Go/pivot/kill thresholds:** committed (see §Success metrics) — Go ≥30% signup + ≥100 signups +
+   ≥30% paid-tier; Kill <~15% signup + free-mentor satisfaction.
+6. **Ad budget:** unpaid parent-community traffic first; paid boost capped at **$50–100**, spent only
+   after the community-access checklist is confirmed.
+7. **Pricing probe:** includes a **B2B/grant A/B arm** alongside consumer price points.
+8. **Hosting:** **Netlify/Vercel** static deploy (build as portable static files).
+9. **Data capture:** lightest form service that fits, **chosen at build time** (deferred, not locked);
+   note where the form / analytics key drops in.
+
 ## Pivot thesis (2026-07-12) — parents-first, by design
 **Parents = deliberate starting wedge, not a bet-the-company choice. The idea is highly pivotable.**
 - **Permanent asset (moat):** the CV hand-pose **coaching engine** (MediaPipe landmarks + handshape
@@ -187,10 +208,15 @@ MediaPipe clip. Revisit a real build only *after* demand is proven.
 - **Build constraint to preserve optionality:** keep tech + brand **segment-neutral under the hood**
   (no hard-coded "baby signs" in the architecture) so pivoting stays a swap.
 
-## Open Questions (still to resolve)
-1. Define exact **kill/go thresholds** and the ad budget (if any) for the demand test.
-2. Which parent communities can the user actually access/post in without being flagged as spam?
-3. Should the pricing probe also A/B a **B2B/grant** framing (sold to programs, not parents)?
+## Open Questions — RESOLVED (2026-07-13)
+1. **Kill/go thresholds + ad budget** → RESOLVED. Thresholds locked in §Success metrics; ad budget
+   capped at **$50–100** with unpaid community traffic first (Decisions #5, #6).
+2. **Which parent communities can the user access without spam-flagging?** → Converted to a
+   **pre-run user-action checklist** (blocks paid spend): before the run, the user confirms which of
+   r/deaf, r/ASL, Deaf-parenting Facebook groups, and **Hands & Voices** chapters they can post in
+   without being flagged. ⬜ *User action — confirm before any paid boost.*
+3. **A/B a B2B/grant framing?** → RESOLVED: **yes.** Added as an A/B arm of the pricing probe
+   (Decision #7, §Demand test).
 
 ---
 
@@ -203,6 +229,14 @@ MediaPipe clip. Revisit a real build only *after* demand is proven.
   plan into a **1–3 day validation experiment** (fake-door landing + pricing probe + parent interviews
   + thin demo clip) with go/pivot/kill criteria. **Next:** on approval — (1) set up "Talk to the Hand"
   recall memory, (2) stand up landing + pricing probe, (3) recruit interviews, (4) record ILY clip.
+- **2026-07-13** — Cloud handoff session. Decision: **refine the plan, do not build yet.** Sharpened the
+  doc into an execution-ready brief: (a) **locked** the go/pivot/kill thresholds (removed the "example"
+  hedging; Go ≥30% signup + ≥100 signups + ≥30% paid-tier, Kill <~15% signup); (b) resolved all three
+  Open Questions — ad budget capped at **$50–100** (unpaid traffic first), community-access converted to
+  a pre-run user-action checklist, and a **B2B/grant A/B arm** added to the pricing probe; (c) recorded
+  build preferences — **Netlify/Vercel** static hosting + **decide-at-build** data capture (lean form
+  service). **Next:** a build session stands up the landing + pricing probe (incl. the B2B/grant arm),
+  but only *after* the user confirms which communities they can post in (Open Q #2 checklist).
 
 ## Sources
 - Half Baked hackathon: https://www.gethalfbaked.com/hackathon-terms-and-conditions
