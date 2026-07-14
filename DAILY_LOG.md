@@ -84,7 +84,9 @@ Idea = a webcam ASL coach that grades hand shape/speed to beat the "Mirror Limit
 **Not done yet (blocks the demand test from producing data):**
 - ⬜ Wire Formspree endpoint into the waitlist form (still `REPLACE_WITH_FORM_ENDPOINT`)
 - ⬜ Enable analytics (Vercel Analytics one-click, or Plausible) for visit→signup rate
-- ⬜ Draft + run outreach (FB parent groups, Hands & Voices) + 5–10 parent interviews
+- ✅ **Outreach + interview kit drafted & ready** — `OUTREACH_KIT.md` (FB posts A/B, Hands & Voices
+  email, 15–20 min parent interview script with the WTP crux, capture template, recruiting checklist)
+- ⬜ *Run* the outreach + 5–10 parent interviews (needs form wired + community warm-up first)
 - ⬜ Read results vs. locked Go/Pivot/Kill thresholds → viability decision
 
 **Key reminder:** the demo is strong, but the *goal is market-viability validation* — capturing signups +
