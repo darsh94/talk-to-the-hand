@@ -59,6 +59,13 @@ Idea = a webcam ASL coach that grades hand shape/speed to beat the "Mirror Limit
   — detection accepted as-is, no tuning needed.**
 - **Deployed to Vercel** (Git-connected, root dir `landing`, auto-redeploys on push). **LIVE:
   https://talk-to-the-hand.vercel.app** — landing at `/`, live webcam demo at `/demo.html` (verified).
+- **Added a dynamic motion sign — "MILK" 🍼** — the demo's marquee value proof (coaching *movement*,
+  which a mirror/static-app can't do). Added a **sign-picker** (ILY static + MILK dynamic). MILK logic:
+  a **continuous "openness"** measure (avg fingertip→wrist distance / palm size) drives an open↔fist
+  state machine that **counts squeezes** (open-close-open-close = 2 reps → success), gated on **horizontal
+  hand orientation** (palm down — the correct form; wrist→middle-knuckle vector must be mostly sideways).
+  Success freezes on a celebration until "Start over"; won't trigger on an open hand or wrong orientation.
+  Iterated live with the user to tune thresholds + orientation; dev debug readout hidden for shipping.
 - **Next (to start collecting data):** (1) create a Formspree form → wire its endpoint into the
   landing form (replaces `REPLACE_WITH_FORM_ENDPOINT`); (2) add analytics for visit→signup rate;
   then (3) warm-up outreach to FB parent groups + a Hands & Voices chapter.
