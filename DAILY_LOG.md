@@ -57,5 +57,8 @@ Idea = a webcam ASL coach that grades hand shape/speed to beat the "Mirror Limit
 - Wired the landing page's demo tile → **"▶ Try it live"** linking to `demo.html`.
 - Tested locally via `python3 -m http.server` on localhost (camera needs https/localhost). **Looks good
   — detection accepted as-is, no tuning needed.**
-- **Next:** deploy to Netlify (live https URL, real demo + capture) or draft the outreach + interview
-  script.
+- **Deployed to Vercel** (Git-connected, root dir `landing`, auto-redeploys on push). **LIVE:
+  https://talk-to-the-hand.vercel.app** — landing at `/`, live webcam demo at `/demo.html` (verified).
+- **Next (to start collecting data):** (1) create a Formspree form → wire its endpoint into the
+  landing form (replaces `REPLACE_WITH_FORM_ENDPOINT`); (2) add analytics for visit→signup rate;
+  then (3) warm-up outreach to FB parent groups + a Hands & Voices chapter.
