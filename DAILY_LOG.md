@@ -69,3 +69,23 @@ Idea = a webcam ASL coach that grades hand shape/speed to beat the "Mirror Limit
 - **Next (to start collecting data):** (1) create a Formspree form → wire its endpoint into the
   landing form (replaces `REPLACE_WITH_FORM_ENDPOINT`); (2) add analytics for visit→signup rate;
   then (3) warm-up outreach to FB parent groups + a Hands & Voices chapter.
+
+### End-of-session status (2026-07-13)
+**Shipped & live:**
+- ✅ Validation plan locked & merged (thresholds, B2B/grant arm) — `PROJECT.md`
+- ✅ Landing page + waitlist + pricing probe (incl. B2B/grant arm) — `landing/index.html`
+- ✅ Live in-browser demo, two signs — `landing/demo.html`:
+  - 🤟 **ILY** — static handshape, 5-point live checklist + hints
+  - 🍼 **MILK** — dynamic moving sign (openness squeeze-counter, horizontal-orientation gate, 2-rep
+    completion + freeze). The product's core "coach, not a mirror" proof.
+- ✅ Deployed on **Vercel** (Git-connected, auto-redeploy on push): https://talk-to-the-hand.vercel.app
+- ✅ Repo: `github.com/darsh94/talk-to-the-hand`; recall memory + this daily log kept current.
+
+**Not done yet (blocks the demand test from producing data):**
+- ⬜ Wire Formspree endpoint into the waitlist form (still `REPLACE_WITH_FORM_ENDPOINT`)
+- ⬜ Enable analytics (Vercel Analytics one-click, or Plausible) for visit→signup rate
+- ⬜ Draft + run outreach (FB parent groups, Hands & Voices) + 5–10 parent interviews
+- ⬜ Read results vs. locked Go/Pivot/Kill thresholds → viability decision
+
+**Key reminder:** the demo is strong, but the *goal is market-viability validation* — capturing signups +
+WTP is what actually answers the question. Wiring the form is the true next priority.
