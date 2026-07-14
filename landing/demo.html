@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Talk to the Hand — live demo: sign "I love you"</title>
+  <meta name="description" content="Try it live: your webcam coaches you to the ASL 'I love you' sign in real time." />
+  <style>
+    :root {
+      --ink:#1c2230; --muted:#5b6472; --brand:#2f6df6; --brand-dark:#1f52c9;
+      --warm:#ff8a5c; --bg:#fbfaf7; --card:#fff; --line:#e7e3db; --ok:#1c9c6b; --no:#c05353;
+      --radius:16px; --shadow:0 6px 24px rgba(28,34,48,.10);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;color:var(--ink);background:var(--bg);
+      font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased}
+    .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+    header{text-align:center;padding:40px 0 8px}
+    .eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--warm);margin-bottom:12px}
+    h1{font-size:clamp(26px,4vw,38px);margin:0 0 10px}
+    h1 .accent{color:var(--brand)}
+    .sub{color:var(--muted);max-width:600px;margin:0 auto}
+    a{color:var(--brand)}
+
+    .stage{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin:28px 0 12px}
+    @media(max-width:760px){.stage{grid-template-columns:1fr}}
+
+    .videocard{position:relative;background:#0d1117;border-radius:var(--radius);overflow:hidden;
+      box-shadow:var(--shadow);aspect-ratio:4/3;display:grid;place-items:center}
+    .mirror{position:absolute;inset:0;transform:scaleX(-1)} /* mirror video + overlay together */
+    video,canvas.overlay{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .placeholder{color:#9aa4b2;text-align:center;padding:24px;z-index:2}
+    .placeholder .big{font-size:52px;margin-bottom:8px}
+
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+      padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .target{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+    .target .glyph{font-size:40px}
+    .target h2{margin:0;font-size:20px}
+    .target p{margin:0;color:var(--muted);font-size:14px}
+
+    .verdict{margin:16px 0;padding:14px 16px;border-radius:12px;font-weight:700;text-align:center;
+      background:#f1f3f7;color:var(--muted);transition:.15s}
+    .verdict.good{background:#e7f7ef;color:var(--ok)}
+    .verdict.close{background:#fff4ec;color:#b5652a}
+
+    ul.checks{list-style:none;padding:0;margin:6px 0 0}
+    ul.checks li{display:flex;align-items:center;gap:10px;padding:7px 0;
+      border-bottom:1px dashed var(--line);font-size:15px}
+    ul.checks li:last-child{border-bottom:0}
+    .dot{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff;
+      font-size:13px;font-weight:800;flex:0 0 auto;background:#c9cfd8}
+    .dot.on{background:var(--ok)} .dot.off{background:var(--no)}
+
+    .hint{margin-top:14px;min-height:24px;color:var(--brand-dark);font-weight:600;font-size:15px}
+    .meter{height:8px;border-radius:999px;background:#eceef2;overflow:hidden;margin-top:14px}
+    .meter > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--warm),var(--brand));
+      transition:width .18s}
+
+    button.cta{margin-top:auto;padding:14px;font-size:16px;font-weight:700;color:#fff;
+      background:var(--brand);border:0;border-radius:12px;cursor:pointer}
+    button.cta:hover{background:var(--brand-dark)}
+    button.cta:disabled{opacity:.55;cursor:default}
+    .status{text-align:center;color:var(--muted);font-size:13px;margin:6px 0 0;min-height:18px}
+
+    .note{max-width:720px;margin:18px auto 40px;color:var(--muted);font-size:13px;text-align:center}
+    .backlink{text-align:center;margin:8px 0 40px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <span class="eyebrow">Live demo — nothing leaves your device</span>
+      <h1>Sign <span class="accent">“I love you”</span> — and let the coach watch</h1>
+      <p class="sub">Thumb out, index up, pinky up, middle & ring curled down. Point your hand at the camera and we'll cheer you on when you nail it. 🤟</p>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="stage">
+      <div class="videocard">
+        <div class="placeholder" id="placeholder">
+          <div class="big">🤟</div>
+          <p><strong>Camera is off</strong><br />Press “Start camera” to begin. Video stays in your browser.</p>
+        </div>
+        <div class="mirror">
+          <video id="video" playsinline muted></video>
+          <canvas id="overlay" class="overlay"></canvas>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="target">
+          <div class="glyph">🤟</div>
+          <div>
+            <h2>Target: “I love you”</h2>
+            <p>The classic ASL sign — a warm first one to learn together.</p>
+          </div>
+        </div>
+
+        <div class="verdict" id="verdict">Start the camera to try it</div>
+
+        <ul class="checks">
+          <li><span class="dot" id="d-thumb">·</span> Thumb sticking out</li>
+          <li><span class="dot" id="d-index">·</span> Index finger up</li>
+          <li><span class="dot" id="d-pinky">·</span> Pinky up</li>
+          <li><span class="dot" id="d-middle">·</span> Middle finger curled down</li>
+          <li><span class="dot" id="d-ring">·</span> Ring finger curled down</li>
+        </ul>
+
+        <div class="meter"><i id="meter"></i></div>
+        <div class="hint" id="hint"></div>
+
+        <button class="cta" id="startBtn">Start camera</button>
+        <p class="status" id="status"></p>
+      </div>
+    </div>
+
+    <p class="note">Works best in good lighting with one hand in frame. Uses Google's MediaPipe hand
+      tracking, running entirely in your browser — no video is uploaded. For camera access this page
+      must be served over <strong>https</strong> or <strong>localhost</strong> (a deployed link works;
+      opening the raw file may block the camera in some browsers).</p>
+    <p class="backlink"><a href="./index.html">← Back to Talk to the Hand</a></p>
+  </div>
+
+  <script type="module">
+    import { FilesetResolver, HandLandmarker, DrawingUtils }
+      from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
+
+    const els = {
+      video: document.getElementById('video'),
+      canvas: document.getElementById('overlay'),
+      placeholder: document.getElementById('placeholder'),
+      verdict: document.getElementById('verdict'),
+      hint: document.getElementById('hint'),
+      meter: document.getElementById('meter'),
+      startBtn: document.getElementById('startBtn'),
+      status: document.getElementById('status'),
+      d: {
+        thumb: document.getElementById('d-thumb'),
+        index: document.getElementById('d-index'),
+        pinky: document.getElementById('d-pinky'),
+        middle: document.getElementById('d-middle'),
+        ring: document.getElementById('d-ring'),
+      }
+    };
+    const ctx = els.canvas.getContext('2d');
+    let handLandmarker = null, running = false, lastVideoTime = -1, drawer = null;
+
+    const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+    // Orientation-tolerant: a finger is "extended" if its tip is farther from the
+    // wrist than its PIP joint (folded fingers curl the tip back toward the palm).
+    const extended = (lm, tip, pip) => dist(lm[0], lm[tip]) > dist(lm[0], lm[pip]) * 1.05;
+
+    function analyze(lm) {
+      const thumb  = dist(lm[0], lm[4]) > dist(lm[0], lm[2]) * 1.05; // thumb tip vs MCP
+      const index  = extended(lm, 8, 6);
+      const middle = extended(lm, 12, 10);
+      const ring   = extended(lm, 16, 14);
+      const pinky  = extended(lm, 20, 18);
+      const checks = { thumb, index, pinky, middle: !middle, ring: !ring };
+      const score = Object.values(checks).filter(Boolean).length;
+      return { checks, score, isILY: score === 5 };
+    }
+
+    function setDot(el, ok){ el.className = 'dot ' + (ok ? 'on' : 'off'); el.textContent = ok ? '✓' : '✕'; }
+
+    function render(res) {
+      const c = res.checks;
+      setDot(els.d.thumb, c.thumb);  setDot(els.d.index, c.index);  setDot(els.d.pinky, c.pinky);
+      setDot(els.d.middle, c.middle); setDot(els.d.ring, c.ring);
+      els.meter.style.width = (res.score / 5 * 100) + '%';
+
+      if (res.isILY) {
+        els.verdict.textContent = "Perfect — that's “I love you”! 🤟";
+        els.verdict.className = 'verdict good';
+        els.hint.textContent = 'Beautiful. Hold it there a second.';
+      } else {
+        els.verdict.textContent = res.score >= 3 ? 'So close — small tweak!' : 'Let’s shape it together';
+        els.verdict.className = 'verdict ' + (res.score >= 3 ? 'close' : '');
+        const tips = [];
+        if (!c.index)  tips.push('Point your index finger straight up ☝️');
+        if (!c.pinky)  tips.push('Lift your pinky up 🤙');
+        if (!c.thumb)  tips.push('Stick your thumb out to the side 👍');
+        if (!c.middle) tips.push('Curl your middle finger down');
+        if (!c.ring)   tips.push('Curl your ring finger down');
+        els.hint.textContent = tips.slice(0, 2).join('  ·  ');
+      }
+    }
+
+    function noHand() {
+      Object.values(els.d).forEach(el => { el.className = 'dot'; el.textContent = '·'; });
+      els.meter.style.width = '0%';
+      els.verdict.textContent = 'Show me your hand ✋'; els.verdict.className = 'verdict';
+      els.hint.textContent = '';
+    }
+
+    async function init() {
+      els.status.textContent = 'Loading the hand-tracking model…';
+      const vision = await FilesetResolver.forVisionTasks(
+        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");
+      handLandmarker = await HandLandmarker.createFromOptions(vision, {
+        baseOptions: {
+          modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+          delegate: "GPU"
+        },
+        runningMode: "VIDEO",
+        numHands: 1
+      });
+      drawer = new DrawingUtils(ctx);
+      els.status.textContent = 'Model ready.';
+    }
+
+    async function start() {
+      els.startBtn.disabled = true;
+      try {
+        if (!handLandmarker) await init();
+        els.status.textContent = 'Requesting camera…';
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+        els.video.srcObject = stream;
+        await els.video.play();
+        els.placeholder.style.display = 'none';
+        els.canvas.width = els.video.videoWidth;
+        els.canvas.height = els.video.videoHeight;
+        running = true;
+        els.status.textContent = 'Live · your video never leaves this browser';
+        els.startBtn.textContent = 'Camera running';
+        loop();
+      } catch (err) {
+        els.startBtn.disabled = false;
+        els.status.textContent = 'Camera blocked: ' + (err && err.message ? err.message : err) +
+          ' — allow camera access, and use an https/localhost link.';
+      }
+    }
+
+    function loop() {
+      if (!running) return;
+      const now = performance.now();
+      if (els.video.currentTime !== lastVideoTime) {
+        lastVideoTime = els.video.currentTime;
+        const result = handLandmarker.detectForVideo(els.video, now);
+        ctx.clearRect(0, 0, els.canvas.width, els.canvas.height);
+        if (result.landmarks && result.landmarks.length) {
+          const lm = result.landmarks[0];
+          drawer.drawConnectors(lm, HandLandmarker.HAND_CONNECTIONS, { color: '#2f6df6', lineWidth: 4 });
+          drawer.drawLandmarks(lm, { color: '#ff8a5c', lineWidth: 1, radius: 4 });
+          render(analyze(lm));
+        } else {
+          noHand();
+        }
+      }
+      requestAnimationFrame(loop);
+    }
+
+    els.startBtn.addEventListener('click', start);
+  </script>
+</body>
+</html>

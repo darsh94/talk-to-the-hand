@@ -41,6 +41,21 @@ Idea = a webcam ASL coach that grades hand shape/speed to beat the "Mirror Limit
 - **`landing/README.md`** — deploy steps (Netlify/Vercel) + how to read results vs. the locked thresholds.
 
 ### Open / next
-- ⬜ Plug in Formspree endpoint + analytics + ILY clip before the page can collect data (user accounts).
+- ⬜ Plug in Formspree endpoint + analytics before the page can collect data (user accounts).
 - ⬜ Warm up FB parent groups + reach a **Hands & Voices** chapter contact before posting (no Reddit).
-- ⬜ Next build options: the ILY MediaPipe demo, or the outreach + parent-interview script.
+
+---
+
+## 2026-07-13 — Live ILY demo
+
+- Built **`landing/demo.html`** — a working, self-contained live demo: opens the webcam, tracks the
+  hand with **MediaPipe Tasks Vision** (in-browser, nothing uploaded), and coaches the user to the ASL
+  **"I love you"** sign in real time. Features: mirrored video + hand-skeleton overlay, a 5-point
+  live checklist (thumb out / index up / pinky up / middle down / ring down), a progress meter, and
+  specific encouraging hints ("So close — lift your pinky up 🤙"). Detection uses orientation-tolerant
+  geometric heuristics (finger extended = tip farther from wrist than its PIP joint).
+- Wired the landing page's demo tile → **"▶ Try it live"** linking to `demo.html`.
+- Tested locally via `python3 -m http.server` on localhost (camera needs https/localhost). **Looks good
+  — detection accepted as-is, no tuning needed.**
+- **Next:** deploy to Netlify (live https URL, real demo + capture) or draft the outreach + interview
+  script.
