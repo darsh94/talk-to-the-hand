@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Talk to the Hand — live demo: sign "I love you" & "milk"</title>
-  <meta name="description" content="Try it live: your webcam coaches you through ASL signs in real time — a held handshape (I love you) and a moving sign (milk)." />
+  <title>Talk to the Hand — live demo: sign "I love you", "milk" & "yes"</title>
+  <meta name="description" content="Try it live: your webcam coaches you through ASL signs in real time — a held handshape (I love you), a moving sign (milk), and a nodding fist (yes)." />
   <style>
     :root {
       --ink:#1c2230; --muted:#5b6472; --brand:#2f6df6; --brand-dark:#1f52c9;
@@ -29,17 +29,34 @@
 
     .videocard{position:relative;background:#0d1117;border-radius:var(--radius);overflow:hidden;
       box-shadow:var(--shadow);aspect-ratio:4/3;display:grid;place-items:center}
+    .videocard.celebrate{animation:glow-pulse .7s ease}
+    @keyframes glow-pulse{0%{box-shadow:0 0 0 0 rgba(47,109,246,.65)}100%{box-shadow:0 0 0 26px rgba(47,109,246,0)}}
     .mirror{position:absolute;inset:0;transform:scaleX(-1)}
+    .videocard.env .mirror{transform:none}
     video,canvas.overlay{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
     .placeholder{color:#9aa4b2;text-align:center;padding:24px;z-index:2}
     .placeholder .big{font-size:52px;margin-bottom:8px}
+    .confetti-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
+    .confetti-piece{position:absolute;top:-10%;animation-name:confetti-fall;
+      animation-timing-function:ease-in;animation-fill-mode:forwards}
+    @keyframes confetti-fall{
+      0%{transform:translateY(0) rotate(0deg);opacity:1}
+      100%{transform:translateY(320px) rotate(360deg);opacity:0}
+    }
 
     .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
       padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column}
 
+    /* progress tracker */
+    .progress-row{display:flex;align-items:center;justify-content:space-between;gap:10px;
+      margin-bottom:14px;font-size:13px;font-weight:700;color:var(--muted)}
+    .progress-badges{display:flex;gap:6px}
+    .badge{font-size:18px;opacity:.3;filter:grayscale(1);transition:.2s}
+    .badge.done{opacity:1;filter:none;transform:scale(1.08)}
+
     /* sign picker */
-    .picker{display:flex;gap:8px;margin-bottom:16px}
-    .pick{flex:1;padding:10px;border:1px solid var(--line);background:#f7f8fa;border-radius:10px;
+    .picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+    .pick{flex:1;min-width:88px;padding:10px;border:1px solid var(--line);background:#f7f8fa;border-radius:10px;
       font:inherit;font-weight:700;font-size:14px;cursor:pointer;color:var(--muted);transition:.12s}
     .pick:hover{border-color:var(--brand)}
     .pick.active{background:var(--brand);color:#fff;border-color:var(--brand)}
@@ -55,6 +72,9 @@
     .verdict.good{background:#e7f7ef;color:var(--ok)}
     .verdict.close{background:#fff4ec;color:#b5652a}
 
+    .tagline{margin:0 0 14px;padding:10px 14px;border-radius:10px;background:#eaf1ff;color:var(--brand-dark);
+      font-weight:700;font-size:13px;text-align:center}
+
     ul.checks{list-style:none;padding:0;margin:6px 0 0}
     ul.checks li{display:flex;align-items:center;gap:10px;padding:6px 0;
       border-bottom:1px dashed var(--line);font-size:15px}
@@ -63,7 +83,7 @@
       font-size:13px;font-weight:800;flex:0 0 auto;background:#c9cfd8}
     .dot.on{background:var(--ok)} .dot.off{background:var(--no)}
 
-    /* milk motion UI */
+    /* dynamic-sign UI (shared by milk + yes) */
     .state-row{display:flex;align-items:center;gap:12px;margin:4px 0 2px}
     .statebox{flex:1;text-align:center;padding:16px 10px;border-radius:12px;font-size:20px;font-weight:800;
       background:#f1f3f7;color:var(--muted);transition:.1s}
@@ -83,9 +103,13 @@
       background:var(--brand);border:0;border-radius:12px;cursor:pointer}
     button.cta:hover{background:var(--brand-dark)}
     button.cta:disabled{opacity:.55;cursor:default}
-    button.ghost{margin-top:10px;padding:9px;font:inherit;font-weight:600;font-size:13px;color:var(--muted);
+    button.ghost{padding:9px;font:inherit;font-weight:600;font-size:13px;color:var(--muted);
       background:none;border:1px solid var(--line);border-radius:10px;cursor:pointer}
     button.ghost:hover{border-color:var(--brand);color:var(--brand)}
+    button.ghost.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+    #milk-reset,#yes-reset{margin-top:10px;width:100%}
+    .cam-controls{display:flex;gap:8px;margin-top:10px}
+    .cam-controls .ghost{flex:1}
     .status{text-align:center;color:var(--muted);font-size:13px;margin:6px 0 0;min-height:18px}
     [hidden]{display:none !important}
 
@@ -98,7 +122,9 @@
     <div class="wrap">
       <span class="eyebrow">Live demo — nothing leaves your device</span>
       <h1>Meet the <span class="accent">coach</span> that watches your hands</h1>
-      <p class="sub">Not a mirror — a coach. Try a held handshape (<strong>I love you</strong>) and a moving sign (<strong>milk</strong>, a baby's first word). It watches, counts, and guides you in real time.</p>
+      <p class="sub">Not a mirror — a coach. Try a held handshape (<strong>I love you</strong>), a moving sign
+        (<strong>milk</strong>), and a nodding fist (<strong>yes</strong>) — three of a baby's first words.
+        It watches, counts, and guides you in real time.</p>
     </div>
   </header>
 
@@ -113,13 +139,26 @@
           <video id="video" playsinline muted></video>
           <canvas id="overlay" class="overlay"></canvas>
         </div>
+        <div class="confetti-layer" id="confettiLayer"></div>
       </div>
 
       <div class="panel">
+        <div class="progress-row">
+          <span id="progressText">🏅 0 of 3 signs mastered</span>
+          <div class="progress-badges">
+            <span class="badge" id="badge-ily" title="I love you">🤟</span>
+            <span class="badge" id="badge-milk" title="Milk">🍼</span>
+            <span class="badge" id="badge-yes" title="Yes">✊</span>
+          </div>
+        </div>
+
         <div class="picker">
           <button class="pick active" data-sign="ily">🤟 I love you<small>held handshape</small></button>
           <button class="pick" data-sign="milk">🍼 Milk<small>moving sign</small></button>
+          <button class="pick" data-sign="yes">✊ Yes<small>nodding fist</small></button>
         </div>
+
+        <p class="tagline" id="coachTagline" hidden>“They give you a mirror. We give you a coach.” 🤟</p>
 
         <!-- ILY (static) -->
         <div id="mode-ily" class="mode">
@@ -139,7 +178,7 @@
           <div class="hint" id="ily-hint"></div>
         </div>
 
-        <!-- MILK (dynamic) -->
+        <!-- MILK (dynamic: open <-> fist) -->
         <div id="mode-milk" class="mode" hidden>
           <div class="target">
             <div class="glyph">🍼</div>
@@ -159,7 +198,31 @@
           <button class="ghost" id="milk-reset">↺ Start over</button>
         </div>
 
+        <!-- YES (dynamic: fist nodding up/down) -->
+        <div id="mode-yes" class="mode" hidden>
+          <div class="target">
+            <div class="glyph">✊</div>
+            <div><h2>Target: “Yes”</h2><p>Make a fist and nod it up and down — like a little head nod. Twice.</p></div>
+          </div>
+          <div class="verdict" id="yes-verdict">Start the camera to try it</div>
+          <div class="state-row">
+            <div class="statebox" id="yes-state">✋ show your hand</div>
+            <div class="reps">
+              <div class="rep" id="yrep-1">1</div>
+              <div class="rep" id="yrep-2">2</div>
+            </div>
+          </div>
+          <div class="meter"><i id="yes-meter"></i></div>
+          <div class="hint" id="yes-hint"></div>
+          <p class="status" id="yes-debug" hidden style="text-align:left;font-variant-numeric:tabular-nums"></p>
+          <button class="ghost" id="yes-reset">↺ Start over</button>
+        </div>
+
         <button class="cta" id="startBtn">Start camera</button>
+        <div class="cam-controls">
+          <button class="ghost" id="flipBtn">🔄 Flip camera</button>
+          <button class="ghost" id="autoBtn">🪄 Auto-detect: off</button>
+        </div>
         <p class="status" id="status"></p>
       </div>
     </div>
@@ -176,9 +239,11 @@
 
     const $ = id => document.getElementById(id);
     const els = {
-      video:$('video'), canvas:$('overlay'), placeholder:$('placeholder'),
-      startBtn:$('startBtn'), status:$('status'),
-      modeIly:$('mode-ily'), modeMilk:$('mode-milk'),
+      video:$('video'), canvas:$('overlay'), placeholder:$('placeholder'), videocard:document.querySelector('.videocard'),
+      startBtn:$('startBtn'), status:$('status'), flipBtn:$('flipBtn'), autoBtn:$('autoBtn'),
+      confettiLayer:$('confettiLayer'), coachTagline:$('coachTagline'),
+      progressText:$('progressText'),
+      modeIly:$('mode-ily'), modeMilk:$('mode-milk'), modeYes:$('mode-yes'),
       // ily
       ilyVerdict:$('ily-verdict'), ilyHint:$('ily-hint'), ilyMeter:$('ily-meter'),
       d:{ thumb:$('d-thumb'), index:$('d-index'), pinky:$('d-pinky'), middle:$('d-middle'), ring:$('d-ring') },
@@ -186,10 +251,15 @@
       milkVerdict:$('milk-verdict'), milkHint:$('milk-hint'), milkMeter:$('milk-meter'),
       milkState:$('milk-state'), rep1:$('rep-1'), rep2:$('rep-2'), milkReset:$('milk-reset'),
       milkDebug:$('milk-debug'),
+      // yes
+      yesVerdict:$('yes-verdict'), yesHint:$('yes-hint'), yesMeter:$('yes-meter'),
+      yesState:$('yes-state'), yrep1:$('yrep-1'), yrep2:$('yrep-2'), yesReset:$('yes-reset'),
+      yesDebug:$('yes-debug'),
     };
     const ctx = els.canvas.getContext('2d');
     let handLandmarker=null, running=false, lastVideoTime=-1, drawer=null;
-    let currentSign='ily';
+    let currentSign='ily', currentFacing='user', autoDetect=false, lastHandTime=performance.now();
+    const SIGNS=['ily','milk','yes'];
 
     const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
     // finger extended if its tip is farther from the wrist than its PIP joint
@@ -200,21 +270,91 @@
       ring:  extended(lm,16,14), pinky: extended(lm,20,18),
     });
 
+    /* ---------- small per-signal hysteresis so on-screen text doesn't flicker frame-to-frame ---------- */
+    const stableState = {};
+    function stabilize(key, value, frames=3){
+      const s = stableState[key];
+      if(!s){ stableState[key]={val:value,count:1,stable:value}; return value; }
+      if(value===s.val) s.count++; else { s.val=value; s.count=1; }
+      if(s.count>=frames) s.stable=value;
+      return s.stable;
+    }
+
+    /* ---------- progress (persisted locally) ---------- */
+    const PROGRESS_KEY='ttth_progress_v1';
+    let progress={};
+    try{ progress=JSON.parse(localStorage.getItem(PROGRESS_KEY))||{}; }catch(e){ progress={}; }
+    function renderProgress(){
+      const done=SIGNS.filter(s=>progress[s]).length;
+      els.progressText.textContent=`🏅 ${done} of ${SIGNS.length} signs mastered`;
+      SIGNS.forEach(s=>{ const b=$('badge-'+s); if(b) b.classList.toggle('done', !!progress[s]); });
+    }
+    function markMastered(sign){
+      if(progress[sign]) return;
+      progress[sign]=true;
+      try{ localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); }catch(e){}
+      renderProgress();
+    }
+    renderProgress();
+
+    /* ---------- sound + confetti celebration ---------- */
+    let audioCtx=null;
+    function ensureAudio(){ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }
+    function tone(freq,dur,delay,vol){
+      const t0=audioCtx.currentTime+delay;
+      const osc=audioCtx.createOscillator(), gain=audioCtx.createGain();
+      osc.type='sine'; osc.frequency.value=freq;
+      gain.gain.setValueAtTime(0,t0);
+      gain.gain.linearRampToValueAtTime(vol,t0+0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001,t0+dur);
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(t0); osc.stop(t0+dur+0.02);
+    }
+    function playTick(){ try{ ensureAudio(); tone(660,0.09,0,0.10); }catch(e){} }
+    function playChime(){ try{ ensureAudio(); tone(523.25,0.14,0,0.13); tone(659.25,0.14,0.09,0.13); tone(783.99,0.22,0.18,0.13); }catch(e){} }
+    function burstConfetti(){
+      const emoji=['🎉','✨','🤟','⭐','💫'];
+      for(let i=0;i<18;i++){
+        const s=document.createElement('span');
+        s.className='confetti-piece';
+        s.textContent=emoji[Math.floor(Math.random()*emoji.length)];
+        s.style.left=Math.random()*100+'%';
+        s.style.fontSize=(14+Math.random()*10)+'px';
+        s.style.animationDuration=(0.8+Math.random()*0.6)+'s';
+        s.style.animationDelay=(Math.random()*0.15)+'s';
+        s.addEventListener('animationend',()=>s.remove());
+        els.confettiLayer.appendChild(s);
+      }
+    }
+    function celebrate(sign){
+      playChime(); burstConfetti(); markMastered(sign);
+      els.videocard.classList.remove('celebrate'); void els.videocard.offsetWidth;
+      els.videocard.classList.add('celebrate');
+    }
+    function updateTagline(){
+      const v = currentSign==='ily'?els.ilyVerdict : currentSign==='milk'?els.milkVerdict : els.yesVerdict;
+      els.coachTagline.hidden = !v.classList.contains('good');
+    }
+
     /* ---------- ILY (static handshape) ---------- */
+    let ilyWasPerfect=false;
     function renderIly(lm){
       const f = fingers(lm);
       const c = { thumb:f.thumb, index:f.index, pinky:f.pinky, middle:!f.middle, ring:!f.ring };
       const score = Object.values(c).filter(Boolean).length;
+      const scoreStable = stabilize('ilyScore', score, 4); // smooths the verdict text; dots below stay live
       const setDot=(el,ok)=>{el.className='dot '+(ok?'on':'off');el.textContent=ok?'✓':'✕';};
       setDot(els.d.thumb,c.thumb); setDot(els.d.index,c.index); setDot(els.d.pinky,c.pinky);
       setDot(els.d.middle,c.middle); setDot(els.d.ring,c.ring);
       els.ilyMeter.style.width=(score/5*100)+'%';
-      if(score===5){
+      if(scoreStable===5){
         els.ilyVerdict.textContent="Perfect — that's “I love you”! 🤟";
         els.ilyVerdict.className='verdict good'; els.ilyHint.textContent='Beautiful. Hold it there a second.';
+        if(!ilyWasPerfect){ ilyWasPerfect=true; celebrate('ily'); }
       }else{
-        els.ilyVerdict.textContent=score>=3?'So close — small tweak!':'Let’s shape it together';
-        els.ilyVerdict.className='verdict '+(score>=3?'close':'');
+        ilyWasPerfect=false;
+        els.ilyVerdict.textContent=scoreStable>=3?'So close — small tweak!':'Let’s shape it together';
+        els.ilyVerdict.className='verdict '+(scoreStable>=3?'close':'');
         const tips=[];
         if(!c.index)tips.push('Point your index finger up ☝️');
         if(!c.pinky)tips.push('Lift your pinky up 🤙');
@@ -223,14 +363,16 @@
         if(!c.ring)tips.push('Curl your ring finger down');
         els.ilyHint.textContent=tips.slice(0,2).join('  ·  ');
       }
+      updateTagline();
     }
     function clearIly(){
       Object.values(els.d).forEach(el=>{el.className='dot';el.textContent='·';});
-      els.ilyMeter.style.width='0%';
+      els.ilyMeter.style.width='0%'; ilyWasPerfect=false;
       els.ilyVerdict.textContent='Show me your hand ✋'; els.ilyVerdict.className='verdict'; els.ilyHint.textContent='';
+      els.coachTagline.hidden=true;
     }
 
-    /* ---------- MILK (dynamic motion: open→squeeze reps) ---------- */
+    /* ---------- MILK (dynamic motion: open->squeeze reps) ---------- */
     const MILK_TARGET=2;
     let milkPhase='open', milkReps=0, milkDone=false, milkArmed=false;
     function resetMilk(){
@@ -240,6 +382,7 @@
       els.milkState.className='statebox'; els.milkState.textContent='✋ show your hand';
       els.milkVerdict.textContent='Make the “milk” sign — squeeze twice';
       els.milkVerdict.className='verdict'; els.milkHint.textContent='';
+      els.coachTagline.hidden=true;
     }
     function renderMilk(lm){
       if(milkDone) return; // frozen on the celebration until "Start over" is pressed
@@ -247,11 +390,12 @@
       // palm size (wrist→middle-knuckle). ~1.7 when open/flat, ~1.1 in a fist.
       const scale=dist(lm[0],lm[9])||1e-6;
       const openness=[8,12,16,20].reduce((s,t)=>s+dist(lm[t],lm[0]),0)/4/scale;
-      const isOpen=openness>1.5, isClosed=openness<1.2;
+      const isOpen=stabilize('milkOpen', openness>1.5, 3);
+      const isClosed=stabilize('milkClosed', openness<1.2, 3);
       // orientation: "milk" is a flat hand held SIDEWAYS (palm down / horizontal), then
       // squeezed. wrist(0)→middle-knuckle(9) points mostly sideways when horizontal.
       const dx=lm[9].x-lm[0].x, dy=lm[9].y-lm[0].y;
-      const horizontal=Math.abs(dx)>Math.abs(dy)*1.1;
+      const horizontal=stabilize('milkHorizontal', Math.abs(dx)>Math.abs(dy)*1.1, 4);
       els.milkDebug.textContent=`openness ${openness.toFixed(2)} · ${isOpen?'OPEN':isClosed?'FIST':'mid'} · ${horizontal?'HORIZONTAL ✓':'vertical ✗ (turn hand sideways)'} · reps ${milkReps}`;
 
       if(!horizontal){
@@ -259,13 +403,14 @@
         els.milkVerdict.textContent='Hold your hand horizontal — palm down ✋';
         els.milkVerdict.className='verdict';
         els.milkHint.textContent='“Milk” is a flat hand held sideways, then you squeeze it closed.';
+        updateTagline();
         return; // don't count squeezes until the hand is horizontal
       }
 
       // count a squeeze on each open→fist transition; "armed" only after we've seen an
       // open hand, so a hand that starts as a fist doesn't score a phantom rep.
       if(isOpen){ milkArmed=true; if(milkPhase==='closed') milkPhase='open'; }
-      else if(isClosed && milkArmed && milkPhase!=='closed'){ milkPhase='closed'; if(!milkDone) milkReps++; }
+      else if(isClosed && milkArmed && milkPhase!=='closed'){ milkPhase='closed'; if(!milkDone){ milkReps++; playTick(); } }
 
       // live state box
       if(isClosed){ els.milkState.className='statebox closed'; els.milkState.textContent='✊ Squeeze!'; }
@@ -283,6 +428,7 @@
         els.milkVerdict.textContent="That's “milk”! 🍼 A baby's very first word.";
         els.milkVerdict.className='verdict good';
         els.milkHint.textContent='Nicely done — tap ↺ Start over to try it again.';
+        celebrate('milk');
       }else{
         els.milkVerdict.textContent = milkReps===1 ? 'Great — one more squeeze!' : 'Open, then squeeze — like milking 🍼';
         els.milkVerdict.className='verdict '+(milkReps===1?'close':'');
@@ -290,24 +436,125 @@
           ? 'Now squeeze your hand into a fist ✊'
           : 'Now open your hand back up ✋';
       }
+      updateTagline();
     }
     function clearMilk(){
       els.milkState.className='statebox'; els.milkState.textContent='✋ show your hand';
       if(!milkDone){ els.milkVerdict.textContent='Show me your hand ✋'; els.milkVerdict.className='verdict'; els.milkHint.textContent=''; }
+      els.coachTagline.hidden=true;
     }
 
-    /* ---------- sign picker ---------- */
+    /* ---------- YES (dynamic motion: fist nodding up/down) ---------- */
+    const YES_TARGET=2;
+    let yesPhase='up', yesReps=0, yesDone=false, yesArmed=false, yesBaselineY=null;
+    function resetYes(){
+      yesPhase='up'; yesReps=0; yesDone=false; yesArmed=false; yesBaselineY=null;
+      [els.yrep1,els.yrep2].forEach(r=>{r.className='rep';});
+      els.yesMeter.style.width='0%';
+      els.yesState.className='statebox'; els.yesState.textContent='✋ show your hand';
+      els.yesVerdict.textContent='Make a fist and nod it — twice';
+      els.yesVerdict.className='verdict'; els.yesHint.textContent='';
+      els.coachTagline.hidden=true;
+    }
+    function renderYes(lm){
+      if(yesDone) return;
+      const f=fingers(lm);
+      const isFist=stabilize('yesFist', !f.index&&!f.middle&&!f.ring&&!f.pinky, 3);
+      if(!isFist){
+        yesBaselineY=null;
+        els.yesState.className='statebox'; els.yesState.textContent='✊ make a fist';
+        els.yesVerdict.textContent='Curl your fingers into a fist first';
+        els.yesVerdict.className='verdict'; els.yesHint.textContent='';
+        els.yesDebug.textContent='not a fist yet';
+        updateTagline();
+        return;
+      }
+      // baseline = slow-adapting average wrist height, so we can measure the nod
+      // (up/down bob) relative to wherever the user happens to be holding their fist.
+      const scale=dist(lm[0],lm[9])||1e-6;
+      yesBaselineY = yesBaselineY===null ? lm[0].y : yesBaselineY*0.94 + lm[0].y*0.06;
+      const deltaY=(lm[0].y - yesBaselineY)/scale;
+      const isDown=stabilize('yesDown', deltaY>0.12, 2);
+      const isUp=stabilize('yesUp', deltaY<-0.12, 2);
+      els.yesDebug.textContent=`fist ✓ · deltaY ${deltaY.toFixed(2)} · ${isDown?'DOWN':isUp?'UP':'mid'} · reps ${yesReps}`;
+
+      if(isUp){ yesArmed=true; if(yesPhase==='down') yesPhase='up'; }
+      else if(isDown && yesArmed && yesPhase!=='down'){ yesPhase='down'; if(!yesDone){ yesReps++; playTick(); } }
+
+      if(isDown){ els.yesState.className='statebox closed'; els.yesState.textContent='👇 nod!'; }
+      else { els.yesState.className='statebox open'; els.yesState.textContent='✊ fist ready'; }
+
+      const reps=Math.min(yesReps,YES_TARGET);
+      els.yrep1.className='rep'+(reps>=1?' done':''); if(reps>=1)els.yrep1.textContent='✓';
+      els.yrep2.className='rep'+(reps>=2?' done':''); if(reps>=2)els.yrep2.textContent='✓';
+      els.yesMeter.style.width=(reps/YES_TARGET*100)+'%';
+
+      if(yesReps>=YES_TARGET){
+        yesDone=true;
+        els.yesState.className='statebox open'; els.yesState.textContent='✅ You did it!';
+        els.yesVerdict.textContent="That's “yes”! ✊ Nicely nodded.";
+        els.yesVerdict.className='verdict good';
+        els.yesHint.textContent='Great job — tap ↺ Start over to try it again.';
+        celebrate('yes');
+      }else{
+        els.yesVerdict.textContent = yesReps===1 ? 'Great — one more nod!' : 'Nod your fist up and down ✊';
+        els.yesVerdict.className='verdict '+(yesReps===1?'close':'');
+        els.yesHint.textContent='Keep the fist and bob your hand like a little head nod.';
+      }
+      updateTagline();
+    }
+    function clearYes(){
+      els.yesState.className='statebox'; els.yesState.textContent='✋ show your hand'; yesBaselineY=null;
+      if(!yesDone){ els.yesVerdict.textContent='Show me your hand ✋'; els.yesVerdict.className='verdict'; els.yesHint.textContent=''; }
+      els.coachTagline.hidden=true;
+    }
+
+    /* ---------- sign switching (picker clicks + auto-detect) ---------- */
+    function switchTo(sign){
+      if(sign===currentSign) return;
+      currentSign=sign;
+      document.querySelectorAll('.pick').forEach(b=>b.classList.toggle('active', b.dataset.sign===sign));
+      els.modeIly.hidden = sign!=='ily';
+      els.modeMilk.hidden = sign!=='milk';
+      els.modeYes.hidden = sign!=='yes';
+      if(sign==='milk') resetMilk(); else if(sign==='yes') resetYes(); else clearIly();
+    }
     document.querySelectorAll('.pick').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        document.querySelectorAll('.pick').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        currentSign=btn.dataset.sign;
-        els.modeIly.hidden = currentSign!=='ily';
-        els.modeMilk.hidden = currentSign!=='milk';
-        if(currentSign==='milk') resetMilk(); else clearIly();
-      });
+      btn.addEventListener('click', ()=>switchTo(btn.dataset.sign));
     });
     els.milkReset.addEventListener('click',resetMilk);
+    els.yesReset.addEventListener('click',resetYes);
+
+    // best-effort guess at which sign is being attempted, used only when auto-detect is on
+    function classify(lm){
+      const f=fingers(lm);
+      const c={ thumb:f.thumb, index:f.index, pinky:f.pinky, middle:!f.middle, ring:!f.ring };
+      const ilyScore=Object.values(c).filter(Boolean).length;
+      const isFist=!f.index&&!f.middle&&!f.ring&&!f.pinky;
+      const scale=dist(lm[0],lm[9])||1e-6;
+      const openness=[8,12,16,20].reduce((s,t)=>s+dist(lm[t],lm[0]),0)/4/scale;
+      const dx=lm[9].x-lm[0].x, dy=lm[9].y-lm[0].y;
+      const horizontal=Math.abs(dx)>Math.abs(dy)*1.1;
+      if(ilyScore>=4) return 'ily';
+      if(openness>1.5 && horizontal) return 'milk';
+      if(isFist && horizontal) return 'milk'; // closed phase of the milk squeeze
+      if(isFist && !horizontal) return 'yes';
+      return null;
+    }
+    els.autoBtn.addEventListener('click', ()=>{
+      autoDetect=!autoDetect;
+      els.autoBtn.textContent='🪄 Auto-detect: '+(autoDetect?'on':'off');
+      els.autoBtn.classList.toggle('active',autoDetect);
+    });
+
+    /* ---------- "still there?" gentle re-prompt when no hand has been seen for a while ---------- */
+    function handleNoHand(){
+      const idle=performance.now()-lastHandTime;
+      const msg = idle>10000 ? 'Still there? Try brighter light or move closer 🔦' : null;
+      if(currentSign==='ily'){ clearIly(); if(msg){ els.ilyVerdict.textContent=msg; } }
+      else if(currentSign==='milk'){ clearMilk(); if(msg){ els.milkVerdict.textContent=msg; } }
+      else { clearYes(); if(msg){ els.yesVerdict.textContent=msg; } }
+    }
 
     /* ---------- camera + loop ---------- */
     async function init(){
@@ -321,25 +568,40 @@
       drawer=new DrawingUtils(ctx);
       els.status.textContent='Model ready.';
     }
+    async function openCamera(facing){
+      const oldStream=els.video.srcObject;
+      if(oldStream) oldStream.getTracks().forEach(t=>t.stop());
+      const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:false});
+      els.video.srcObject=stream; await els.video.play();
+      els.canvas.width=els.video.videoWidth; els.canvas.height=els.video.videoHeight;
+      els.videocard.classList.toggle('env', facing==='environment');
+    }
     async function start(){
       els.startBtn.disabled=true;
       try{
         if(!handLandmarker) await init();
         els.status.textContent='Requesting camera…';
-        const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});
-        els.video.srcObject=stream; await els.video.play();
+        await openCamera(currentFacing);
         els.placeholder.style.display='none';
-        els.canvas.width=els.video.videoWidth; els.canvas.height=els.video.videoHeight;
         running=true;
+        lastHandTime=performance.now();
         els.status.textContent='Live · your video never leaves this browser';
         els.startBtn.textContent='Camera running';
-        if(currentSign==='milk') resetMilk();
+        if(currentSign==='milk') resetMilk(); else if(currentSign==='yes') resetYes();
         loop();
       }catch(err){
         els.startBtn.disabled=false;
         els.status.textContent='Camera blocked: '+((err&&err.message)||err)+' — allow camera and use an https/localhost link.';
       }
     }
+    els.flipBtn.addEventListener('click', async ()=>{
+      if(!running){ els.status.textContent='Start the camera first, then flip it.'; return; }
+      els.flipBtn.disabled=true;
+      const next = currentFacing==='user' ? 'environment' : 'user';
+      try{ await openCamera(next); currentFacing=next; }
+      catch(err){ els.status.textContent='Could not switch camera: '+((err&&err.message)||err); }
+      els.flipBtn.disabled=false;
+    });
     function loop(){
       if(!running) return;
       const now=performance.now();
@@ -348,12 +610,21 @@
         const result=handLandmarker.detectForVideo(els.video,now);
         ctx.clearRect(0,0,els.canvas.width,els.canvas.height);
         if(result.landmarks&&result.landmarks.length){
+          lastHandTime=now;
           const lm=result.landmarks[0];
           drawer.drawConnectors(lm,HandLandmarker.HAND_CONNECTIONS,{color:'#2f6df6',lineWidth:4});
           drawer.drawLandmarks(lm,{color:'#ff8a5c',lineWidth:1,radius:4});
-          if(currentSign==='ily') renderIly(lm); else renderMilk(lm);
+          if(autoDetect){
+            const guess=classify(lm);
+            if(guess){
+              const stableGuess=stabilize('autoGuess', guess, 10);
+              const midRep=(currentSign==='milk'&&milkReps>0&&!milkDone)||(currentSign==='yes'&&yesReps>0&&!yesDone);
+              if(stableGuess!==currentSign && !midRep) switchTo(stableGuess);
+            }
+          }
+          if(currentSign==='ily') renderIly(lm); else if(currentSign==='milk') renderMilk(lm); else renderYes(lm);
         }else{
-          if(currentSign==='ily') clearIly(); else clearMilk();
+          handleNoHand();
         }
       }
       requestAnimationFrame(loop);
