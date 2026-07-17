@@ -14,15 +14,22 @@
   <!--
     ============================================================================
     DEMAND-TEST INSTRUMENTATION — plug these in at deploy (see landing/README.md)
-    1. FORM_ENDPOINT: create a free Formspree form (or Tally) and paste its URL
-       into the <form action="..."> below. It captures email + which-plan (WTP)
-       + the B2B/grant arm in ONE submit.
-    2. ANALYTICS: drop a Plausible/Umami/GA snippet here to measure
-       visits -> signups (the conversion rate the Go/Kill thresholds need).
+    1. FORM_ENDPOINT: create a free Formspree form and paste its URL into the
+       <form action="..."> below. It captures email + which-plan (WTP) + the
+       B2B/grant arm in ONE submit. The page submits it via fetch (see bottom
+       script) so it shows an inline "you're on the list" state instead of
+       redirecting to Formspree.
+    2. ANALYTICS: Vercel Web Analytics — the script tag below is already wired;
+       just flip it on in the Vercel dashboard (Project -> Analytics -> Enable).
+       A custom "signup" event (with plan tier) fires on every successful submit,
+       so visits -> signups is readable straight from the Vercel dashboard.
     3. DEMO_CLIP: replace the poster/placeholder in #demo with the ILY clip.
     ============================================================================
   -->
-  <!-- <script defer data-domain="YOURDOMAIN" src="https://plausible.io/js/script.js"></script> -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 
   <style>
     :root {
@@ -198,7 +205,7 @@
   <!-- Signup + pricing probe (the demand test) -->
   <section id="join">
     <div class="wrap">
-      <div class="card">
+      <div class="card" id="join-card">
         <h2>Get early access</h2>
         <p class="hint">Be first to try it with your family. We'll email you when the beta opens — and your answers below shape what we build first.</p>
 
@@ -206,7 +213,11 @@
           FORM: point action= at your Formspree/Tally endpoint (see README).
           One submit captures: email + which-plan (consumer WTP) + the B2B/grant arm.
         -->
-        <form action="REPLACE_WITH_FORM_ENDPOINT" method="POST">
+        <form action="REPLACE_WITH_FORM_ENDPOINT" method="POST" id="waitlist-form">
+          <input type="hidden" name="_subject" value="New Talk to the Hand waitlist signup" />
+          <!-- honeypot: real users never see or fill this; Formspree silently drops submits where it's filled -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
           <label class="field" for="email">Your email</label>
           <input type="email" id="email" name="email" placeholder="you@email.com" required />
 
@@ -247,5 +258,51 @@
     </div>
   </footer>
 
+  <script>
+    (function () {
+      var form = document.getElementById('waitlist-form');
+      var card = document.getElementById('join-card');
+      if (!form) return;
+
+      function showError(message) {
+        var existing = form.querySelector('.form-error');
+        if (existing) existing.remove();
+        var p = document.createElement('p');
+        p.className = 'form-error';
+        p.style.cssText = 'color:#c05353;font-size:14px;text-align:center;margin-top:10px';
+        p.textContent = message;
+        form.appendChild(p);
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var endpoint = form.getAttribute('action');
+        if (!endpoint || endpoint.indexOf('REPLACE_WITH_FORM_ENDPOINT') !== -1) {
+          showError("Signups aren't connected yet — check back soon!");
+          return;
+        }
+        var btn = form.querySelector('button.cta');
+        btn.disabled = true;
+        btn.textContent = 'Joining…';
+        try {
+          var res = await fetch(endpoint, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' },
+          });
+          if (!res.ok) throw new Error('submit failed');
+          var plan = (form.querySelector('input[name="plan_interest"]:checked') || {}).value;
+          if (window.va) va('event', { name: 'signup', data: { plan: plan || 'unknown' } });
+          card.innerHTML =
+            '<h2>You’re on the list! 🎉</h2>' +
+            '<p class="hint">We’ll email you when the beta opens. Thanks for helping us build this right.</p>';
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = 'Join the waitlist →';
+          showError('Something went wrong — please try again in a moment.');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

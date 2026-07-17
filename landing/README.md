@@ -11,14 +11,23 @@ hook → waitlist capture → **pricing probe with the B2B/grant A/B arm** in on
 **Vercel / Netlify from Git:** point it at this repo, set **base directory = `landing`**, framework =
 "Other / static". Auto-deploys on push.
 
-## Before it can collect data — 3 plug-ins (marked in `index.html`)
+## Before it can collect data — 2 plug-ins (marked in `index.html`)
 
-1. **Form endpoint (required).** Create a free form at **formspree.io** (or Tally). Paste its POST URL
-   into `<form action="REPLACE_WITH_FORM_ENDPOINT">`. One submit captures `email` + `plan_interest`.
+1. **Form endpoint (required, the only step left).** Create a free form at **formspree.io**, then paste
+   its endpoint URL (looks like `https://formspree.io/f/xxxxxxxx` — *not* the formspree.io homepage)
+   into `<form action="REPLACE_WITH_FORM_ENDPOINT" id="waitlist-form">`. One submit captures `email` +
+   `plan_interest`, and is sent via `fetch` (see the script at the bottom of the file) so visitors see an
+   inline "you're on the list" message instead of being redirected to Formspree.
    - `plan_interest` values: `free_only`, `paid_9`, `paid_19`, `program_provided` (← the B2B/grant arm).
-2. **Analytics (required for the conversion metric).** Add a Plausible/Umami/GA snippet in `<head>`
-   (commented placeholder is there) so you can measure **visits → signups**.
-3. **Demo clip (optional but converts).** Replace the `#demo` placeholder with the ILY clip.
+   - A hidden `_gotcha` field is a Formspree honeypot (silently drops bot spam); `_subject` sets the
+     notification email's subject line. Neither needs any setup.
+2. **Analytics — code is already wired, just flip it on.** The page loads Vercel Web Analytics
+   (`/_vercel/insights/script.js`) and fires a custom `signup` event (with the chosen `plan_interest`
+   tier) on every successful submit. In the Vercel dashboard: **Project → Analytics → Enable.** No
+   extra account or snippet needed since the site is already deployed on Vercel. That gives you both
+   **visits → signups** (page views vs. the `signup` event) and the WTP tier breakdown, in one place.
+3. **Demo clip (optional but converts).** Replace the `#demo` placeholder with the ILY clip — or just
+   link to the live `/demo.html`, which is already wired as the `#demo` tile.
 
 ## Reading the result — against the LOCKED thresholds (PROJECT.md §Success metrics)
 
