@@ -124,8 +124,37 @@ the product — see §Key reminder above; the form-wiring priority is unchanged)
   trusting it for the pitch clip.
 - Committed and pushed to branch `claude/repo-status-5zpjxb` (not yet merged to `main`).
 
+### Data capture wired (same session, continued)
+
+Picked up the 07-13 blocker directly: the demand test can't produce a go/pivot/kill read without
+signups + WTP actually being captured. Both remaining plug-ins from `landing/README.md` are now wired.
+
+- **Formspree endpoint live:** created a Formspree form (user did the signup — needs a real account,
+  not something buildable from the sandbox) and wired `https://formspree.io/f/mzdnerjr` into
+  `landing/index.html`'s waitlist form.
+- **Form UX upgraded:** submits via `fetch` instead of a full-page POST, so a successful signup shows
+  an inline "You're on the list! 🎉" message instead of redirecting away to Formspree. Added a
+  `_gotcha` honeypot field (silently drops bot spam) and a `_subject` field for a clean notification
+  email subject.
+- **Vercel Web Analytics wired and enabled:** added the `/_vercel/insights/script.js` loader plus a
+  custom `signup` event (tagged with the chosen `plan_interest` tier) fired on every successful
+  submit. User enabled **Web Analytics** in the Vercel project dashboard — page views vs. the
+  `signup` event now gives a direct **visits → signups** read, with the WTP tier breakdown attached,
+  exactly what the Go/Pivot/Kill thresholds in `PROJECT.md` need.
+- **Verification:** this sandbox's network policy also blocks `formspree.io` (confirmed via a direct
+  curl — same class of restriction as the MediaPipe CDN block above), so the live submission couldn't
+  be end-to-end tested from here. Instead verified locally with Playwright against a stubbed endpoint:
+  placeholder-endpoint state shows a graceful error, the honeypot/subject fields are correctly hidden
+  and set, `window.va` loads, and a successful submit correctly swaps in the confirmation message.
+  **A real test submission against the live Formspree form is still owed** once deployed — submit one
+  test entry on the live site, confirm it lands in Formspree, then delete that test row.
+- Updated `landing/README.md` to match the wired state.
+- Opened PR #3 and merged `claude/repo-status-5zpjxb` → `main`.
+
 ### Open / next
-- ⬜ **Live-camera smoke test** on https://talk-to-the-hand.vercel.app once this branch is merged/deployed —
+- ⬜ **Live-camera smoke test** on https://talk-to-the-hand.vercel.app now that this is deployed —
   especially the new "Yes" sign and auto-detect, which have only been logic-tested, not camera-tested.
-- ⬜ Everything still open from 07-13 remains open: Formspree endpoint, analytics, outreach + interviews,
-  Go/Pivot/Kill read. Demo polish does not substitute for those.
+- ⬜ **One real waitlist test submission** on the live site to confirm the Formspree wiring end-to-end
+  (delete the test row afterward so it doesn't skew real signup counts).
+- ⬜ Outreach + 5–10 parent interviews (community-access checklist from PROJECT.md still applies).
+- ⬜ Read results vs. the locked Go/Pivot/Kill thresholds once signups start coming in.
