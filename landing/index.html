@@ -209,11 +209,8 @@
         <h2>Get early access</h2>
         <p class="hint">Be first to try it with your family. We'll email you when the beta opens — and your answers below shape what we build first.</p>
 
-        <!--
-          FORM: point action= at your Formspree/Tally endpoint (see README).
-          One submit captures: email + which-plan (consumer WTP) + the B2B/grant arm.
-        -->
-        <form action="REPLACE_WITH_FORM_ENDPOINT" method="POST" id="waitlist-form">
+        <!-- One submit captures: email + which-plan (consumer WTP) + the B2B/grant arm. -->
+        <form action="https://formspree.io/f/mzdnerjr" method="POST" id="waitlist-form">
           <input type="hidden" name="_subject" value="New Talk to the Hand waitlist signup" />
           <!-- honeypot: real users never see or fill this; Formspree silently drops submits where it's filled -->
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
