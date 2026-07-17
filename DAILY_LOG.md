@@ -91,3 +91,41 @@ Idea = a webcam ASL coach that grades hand shape/speed to beat the "Mirror Limit
 
 **Key reminder:** the demo is strong, but the *goal is market-viability validation* — capturing signups +
 WTP is what actually answers the question. Wiring the form is the true next priority.
+
+---
+
+## 2026-07-17 — Demo polish: third sign, celebrations, auto-detect
+
+Session scoped to making `landing/demo.html` more appealing as a credibility prop (still a prop, not
+the product — see §Key reminder above; the form-wiring priority is unchanged).
+
+- **Added a third sign — "Yes" ✊** (fist nodding up/down, 2 reps to complete), pulled from the
+  yes/no vocab already listed in `PROJECT.md`. Reuses the milk sign's open/closed-style state machine,
+  but keyed on vertical wrist motion (via a slow-adapting baseline) instead of hand openness, gated on
+  a stable "fist" handshape.
+- **Celebration feedback:** confetti burst + a Web Audio chime + a glow-pulse on the video card when a
+  sign is completed (and a short tick sound per counted rep) — replaces the old silent text-only "Perfect!".
+- **Progress tracker:** "🏅 X of 3 signs mastered" badge row, persisted in `localStorage` so returning
+  visitors see prior progress.
+- **Auto-detect toggle:** guesses which sign is being attempted from hand shape/orientation and
+  switches the picker automatically (debounced ~10 stable frames; won't interrupt a rep in progress).
+- **Mobile camera flip button** (front/back facingMode).
+- **Debounced verdict/state text** (small per-signal hysteresis) to stop the coaching hints from
+  flickering frame-to-frame — a known rough edge from the 07-13 build.
+- **"Still there?" re-prompt** after 10s with no hand detected, replacing the static "show your hand"
+  placeholder.
+- **Coach-vs-mirror tagline** ("They give you a mirror. We give you a coach.") now surfaces on the
+  panel whenever a sign is being nailed, reinforcing the pitch line directly in the product.
+- **Verification:** this sandbox's network policy blocks the MediaPipe CDN (`cdn.jsdelivr.net`), so a
+  live camera pass wasn't possible here — confirmed via syntax check, a Playwright pass on the static
+  UI (picker, progress badges), and a standalone unit test replicating the new detection math (ILY
+  scoring, milk-vs-yes orientation disambiguation, debounce logic, rep-counting) against synthetic
+  hand poses (16/16 passing). **A real camera pass on the deployed Vercel build is still owed** before
+  trusting it for the pitch clip.
+- Committed and pushed to branch `claude/repo-status-5zpjxb` (not yet merged to `main`).
+
+### Open / next
+- ⬜ **Live-camera smoke test** on https://talk-to-the-hand.vercel.app once this branch is merged/deployed —
+  especially the new "Yes" sign and auto-detect, which have only been logic-tested, not camera-tested.
+- ⬜ Everything still open from 07-13 remains open: Formspree endpoint, analytics, outreach + interviews,
+  Go/Pivot/Kill read. Demo polish does not substitute for those.
