@@ -187,3 +187,22 @@ signups + WTP actually being captured. Both remaining plug-ins from `landing/REA
   (1) `loop()` wraps detection in try/catch, guards on `readyState`/`videoWidth`, and always schedules
   the next frame while running — the loop can no longer die; (2) `openCamera()` acquires the new stream
   before stopping the old, waits for `loadedmetadata` dimensions, and resets `lastVideoTime`.
+
+### End-of-session status (2026-07-20)
+**Done today:**
+- ✅ Live-camera smoke test passed → demo trusted for sharing
+- ✅ Drafted launch messages (Slack build-in-public, WhatsApp) for the competition + personal network
+- ✅ Verified the waitlist funnel front-end on the live site (inline "You're on the list!" confirmation)
+- ✅ Added Reddit + Facebook **channel playbook** to `OUTREACH_KIT.md`
+- ✅ Wired **`?ref=` attribution** into the waitlist form (Formspree column + Vercel `signup` event),
+  captured on both landing and demo pages → signups-by-channel
+- ✅ Fixed the **camera-flip bug** that silently killed hand detection (from early user feedback)
+- All committed and pushed directly to `main` (5 commits, `d201f06`..`2c845d7`); Vercel auto-deployed.
+
+**Open / next:**
+- ⬜ Delete the one real Formspree test row (front-end verified; just clean up the row)
+- ⬜ Re-verify the camera-flip fix on the live build (flip 2–3×, confirm detection persists)
+- ⬜ Draft per-subreddit Reddit posts (rule-compliant, `?ref=` links baked in)
+- ⬜ Warm up FB parent groups + a Hands & Voices chapter; then run outreach
+- ⬜ Read signups-by-channel vs. the locked Go/Pivot/Kill thresholds → viability decision
+- 🧹 Housekeeping: stale merged remote branch `claude/repo-status-5zpjxb` can be deleted.
