@@ -572,11 +572,20 @@
       els.status.textContent='Model ready.';
     }
     async function openCamera(facing){
+      // acquire the NEW stream before stopping the old one, so a failed switch
+      // (e.g. no rear camera) doesn't leave the camera dead
+      const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:false});
       const oldStream=els.video.srcObject;
       if(oldStream) oldStream.getTracks().forEach(t=>t.stop());
-      const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:false});
-      els.video.srcObject=stream; await els.video.play();
+      els.video.srcObject=stream;
+      await els.video.play();
+      // wait until the new stream actually reports dimensions before resuming detection,
+      // else detectForVideo() runs on a 0x0 frame mid-swap and throws
+      if(!els.video.videoWidth){
+        await new Promise(res=>els.video.addEventListener('loadedmetadata',res,{once:true}));
+      }
       els.canvas.width=els.video.videoWidth; els.canvas.height=els.video.videoHeight;
+      lastVideoTime=-1; // force the loop to re-detect on the fresh stream
       els.videocard.classList.toggle('env', facing==='environment');
     }
     async function start(){
@@ -608,29 +617,36 @@
     function loop(){
       if(!running) return;
       const now=performance.now();
-      if(els.video.currentTime!==lastVideoTime){
-        lastVideoTime=els.video.currentTime;
-        const result=handLandmarker.detectForVideo(els.video,now);
-        ctx.clearRect(0,0,els.canvas.width,els.canvas.height);
-        if(result.landmarks&&result.landmarks.length){
-          lastHandTime=now;
-          const lm=result.landmarks[0];
-          drawer.drawConnectors(lm,HandLandmarker.HAND_CONNECTIONS,{color:'#2f6df6',lineWidth:4});
-          drawer.drawLandmarks(lm,{color:'#ff8a5c',lineWidth:1,radius:4});
-          if(autoDetect){
-            const guess=classify(lm);
-            if(guess){
-              const stableGuess=stabilize('autoGuess', guess, 10);
-              const midRep=(currentSign==='milk'&&milkReps>0&&!milkDone)||(currentSign==='yes'&&yesReps>0&&!yesDone);
-              if(stableGuess!==currentSign && !midRep) switchTo(stableGuess);
+      try{
+        // only detect on a ready, non-zero frame with a fresh timestamp — guards the
+        // camera-swap window where the video is briefly 0x0
+        if(els.video.readyState>=2 && els.video.videoWidth>0 && els.video.currentTime!==lastVideoTime){
+          lastVideoTime=els.video.currentTime;
+          const result=handLandmarker.detectForVideo(els.video,now);
+          ctx.clearRect(0,0,els.canvas.width,els.canvas.height);
+          if(result.landmarks&&result.landmarks.length){
+            lastHandTime=now;
+            const lm=result.landmarks[0];
+            drawer.drawConnectors(lm,HandLandmarker.HAND_CONNECTIONS,{color:'#2f6df6',lineWidth:4});
+            drawer.drawLandmarks(lm,{color:'#ff8a5c',lineWidth:1,radius:4});
+            if(autoDetect){
+              const guess=classify(lm);
+              if(guess){
+                const stableGuess=stabilize('autoGuess', guess, 10);
+                const midRep=(currentSign==='milk'&&milkReps>0&&!milkDone)||(currentSign==='yes'&&yesReps>0&&!yesDone);
+                if(stableGuess!==currentSign && !midRep) switchTo(stableGuess);
+              }
             }
+            if(currentSign==='ily') renderIly(lm); else if(currentSign==='milk') renderMilk(lm); else renderYes(lm);
+          }else{
+            handleNoHand();
           }
-          if(currentSign==='ily') renderIly(lm); else if(currentSign==='milk') renderMilk(lm); else renderYes(lm);
-        }else{
-          handleNoHand();
         }
+      }catch(err){
+        // a transient detect error (e.g. a frame caught mid camera-swap) must NEVER
+        // kill the loop — skip this frame and keep going
       }
-      requestAnimationFrame(loop);
+      if(running) requestAnimationFrame(loop);
     }
     els.startBtn.addEventListener('click',start);
   </script>

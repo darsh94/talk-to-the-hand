@@ -179,3 +179,11 @@ signups + WTP actually being captured. Both remaining plug-ins from `landing/REA
   "direct", writes it to a hidden `ref` field so **Formspree captures which channel each signup came
   from**, and tags the Vercel `signup` event with `ref` too → signups-by-channel readout. Use per-post
   links like `…/?ref=reddit_asl`, `…/?ref=fb_parents`.
+- 🐛 **Fixed camera-flip bug** (reported via early feedback): after flipping the camera ~twice, hand
+  recognition silently stopped while the UI still showed "camera running," and "Start over" didn't
+  recover it. Root cause: `detectForVideo()` throws on the brief **0×0 frame** during a camera swap,
+  and the uncaught throw happened before `requestAnimationFrame(loop)` → the detection loop died
+  permanently (reset only cleared UI state, never re-kicked the loop). Fix in `landing/demo.html`:
+  (1) `loop()` wraps detection in try/catch, guards on `readyState`/`videoWidth`, and always schedules
+  the next frame while running — the loop can no longer die; (2) `openCamera()` acquires the new stream
+  before stopping the old, waits for `loadedmetadata` dimensions, and resets `lastVideoTime`.
