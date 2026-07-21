@@ -116,3 +116,53 @@ demo reaction. Roll these up against `PROJECT.md` §Success metrics after the ru
 - [ ] **Analytics enabled** (visit→signup rate)
 - [ ] Posts A/B live; interviews scheduled (target 5–10)
 - [ ] Optional paid boost ($50–100) — only *after* the above
+
+---
+
+## 6. Channel playbook — Reddit & Facebook (how to actually do it)
+
+### ⚠️ The #1 rule for BOTH: warm up, don't drive-by
+Communities auto-filter/ban brand-new accounts and pure link-drops. Plan a **2–3 day warm-up** per
+channel: join, read the pinned rules, and leave a few genuine comments *before* you ever post a link.
+Reddiquette's rough guide is **~90% participation / 10% self-promo.**
+
+### Track which channel converts — use a `?ref=` tag per post
+Append a unique tag to the link so Vercel Analytics' referrer/UTM view tells you what's working:
+- Reddit r/asl → `https://talk-to-the-hand.vercel.app/?ref=reddit_asl`
+- FB parent group → `https://talk-to-the-hand.vercel.app/?ref=fb_parents`
+- WhatsApp/Slack → `?ref=wa` / `?ref=slack`
+(Optional upgrade: capture `ref` as a hidden field in the waitlist form for exact per-post attribution —
+ask and I'll wire it.)
+
+### Reddit
+**Where:** r/asl and r/ASL (learners — most receptive), r/deaf (protective — read rules, consider
+messaging mods first), r/HardOfHearing, r/slp (speech-language pathologists), r/ECEProfessionals /
+r/Teachers (educators). Adjacent: r/parenting, baby-sign threads.
+
+**How:**
+- Use an **aged account with some karma** — fresh accounts get auto-removed.
+- **Read each subreddit's rules.** Many ban self-promo outright → either post as a genuine
+  *"I built a free tool, would love feedback"* discussion (not a "launch"), or **DM the mods** for the OK.
+- **One subreddit at a time**, and **don't paste identical text** across subs (spam filter). Rewrite each.
+- Add flair if required; post weekday mornings ET for reach.
+- **Reply to every comment**, humbly. Expect skepticism — especially from Deaf users wary of hearing-built
+  AI tools. Lead with "*complement to mentors, not a replacement*," and mean it.
+
+### Facebook
+**Where:** "Parents of Deaf/Hard of Hearing Children" groups, ASL-learning groups, Hands & Voices chapter
+groups, and baby-sign-language groups (hearing parents already signing — strong adjacency).
+
+**How:**
+- **Join → answer the membership questions honestly** (many ask "why?"). Approval can take days.
+- **Engage genuinely first**, then post the value-first copy from §1. Respect pinned rules — some ban
+  promotion (look for a weekly "self-promo" thread, or ask an admin).
+- Groups are higher-intent and less spam-sensitive than Reddit, but admins are strict — don't burn trust.
+
+### Community-sensitivity note (ethics = strategy)
+The Deaf community's principle is *"nothing about us without us."* A hearing-built ASL/AI tool will draw
+scrutiny. Be humble, frame as practice *between* Deaf-mentor visits, invite critique, and ideally line up
+a **Deaf advisor**. This protects the brand *and* gets you truer feedback.
+
+### Cadence
+1–2 channels/day, not a blast. Watch signups-by-`ref`, double down on what converts, and log dropped/
+banned posts so "we tried everywhere" doesn't hide a channel that never actually ran.
