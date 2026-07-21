@@ -152,9 +152,21 @@ signups + WTP actually being captured. Both remaining plug-ins from `landing/REA
 - Opened PR #3 and merged `claude/repo-status-5zpjxb` → `main`.
 
 ### Open / next
-- ⬜ **Live-camera smoke test** on https://talk-to-the-hand.vercel.app now that this is deployed —
-  especially the new "Yes" sign and auto-detect, which have only been logic-tested, not camera-tested.
+- ✅ **Live-camera smoke test** — done 2026-07-20 (see below).
 - ⬜ **One real waitlist test submission** on the live site to confirm the Formspree wiring end-to-end
   (delete the test row afterward so it doesn't skew real signup counts).
 - ⬜ Outreach + 5–10 parent interviews (community-access checklist from PROJECT.md still applies).
 - ⬜ Read results vs. the locked Go/Pivot/Kill thresholds once signups start coming in.
+
+---
+
+## 2026-07-20 — Live-camera smoke test + competition launch prep
+
+- ✅ **Live-camera smoke test PASSED** on the deployed build (https://talk-to-the-hand.vercel.app/demo.html).
+  Verified the demo on a real webcam — clears the verification owed from the 07-17 cloud sessions
+  (which could only logic-test, since that sandbox blocks the MediaPipe CDN). The build is now trusted
+  for sharing / the pitch clip.
+- **Preparing to launch the test** in the Half Baked competition Slack (build-in-public). Drafted a
+  Slack post (interactive-demo-first hook + waitlist ask); ready to share.
+- **Still owed before/while promoting:** one real Formspree test submission (then delete the test row);
+  then run the parent outreach (`OUTREACH_KIT.md`) and read signups vs. the Go/Pivot/Kill thresholds.
