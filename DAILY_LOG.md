@@ -170,3 +170,12 @@ signups + WTP actually being captured. Both remaining plug-ins from `landing/REA
   Slack post (interactive-demo-first hook + waitlist ask); ready to share.
 - **Still owed before/while promoting:** one real Formspree test submission (then delete the test row);
   then run the parent outreach (`OUTREACH_KIT.md`) and read signups vs. the Go/Pivot/Kill thresholds.
+- ✅ **Verified the funnel front-end** — a real test signup on the live site showed the inline "You're on
+  the list! 🎉" confirmation (user; Formspree row check + delete still to do).
+- **Channel playbook added** to `OUTREACH_KIT.md` — how to do Reddit + Facebook outreach without getting
+  banned (warm-up, per-sub rules, community sensitivity, `?ref=` tracking, cadence).
+- ✅ **`?ref=` attribution wired into the waitlist form** (`landing/index.html`): reads `?ref=` from the
+  URL (persisted in sessionStorage across the hop to demo.html), falls back to referrer host then
+  "direct", writes it to a hidden `ref` field so **Formspree captures which channel each signup came
+  from**, and tags the Vercel `signup` event with `ref` too → signups-by-channel readout. Use per-post
+  links like `…/?ref=reddit_asl`, `…/?ref=fb_parents`.

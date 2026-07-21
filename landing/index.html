@@ -214,6 +214,8 @@
           <input type="hidden" name="_subject" value="New Talk to the Hand waitlist signup" />
           <!-- honeypot: real users never see or fill this; Formspree silently drops submits where it's filled -->
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+          <!-- attribution: filled from ?ref= (or referrer) by the script below, captured with every signup -->
+          <input type="hidden" name="ref" id="ref-field" />
 
           <label class="field" for="email">Your email</label>
           <input type="email" id="email" name="email" placeholder="you@email.com" required />
@@ -261,6 +263,23 @@
       var card = document.getElementById('join-card');
       if (!form) return;
 
+      // Attribution: capture ?ref= (persisted across the in-site hop to demo.html),
+      // fall back to the external referrer host, then "direct". Lands in Formspree +
+      // the analytics signup event so we can read signups-by-channel.
+      var ref = null;
+      try {
+        var qp = new URLSearchParams(location.search);
+        ref = qp.get('ref');
+        if (ref) sessionStorage.setItem('tth_ref', ref);
+        else ref = sessionStorage.getItem('tth_ref');
+      } catch (e) {}
+      if (!ref && document.referrer) {
+        try { ref = 'ext:' + new URL(document.referrer).hostname; } catch (e) {}
+      }
+      ref = ref || 'direct';
+      var refField = document.getElementById('ref-field');
+      if (refField) refField.value = ref;
+
       function showError(message) {
         var existing = form.querySelector('.form-error');
         if (existing) existing.remove();
@@ -289,7 +308,7 @@
           });
           if (!res.ok) throw new Error('submit failed');
           var plan = (form.querySelector('input[name="plan_interest"]:checked') || {}).value;
-          if (window.va) va('event', { name: 'signup', data: { plan: plan || 'unknown' } });
+          if (window.va) va('event', { name: 'signup', data: { plan: plan || 'unknown', ref: ref } });
           card.innerHTML =
             '<h2>You’re on the list! 🎉</h2>' +
             '<p class="hint">We’ll email you when the beta opens. Thanks for helping us build this right.</p>';
