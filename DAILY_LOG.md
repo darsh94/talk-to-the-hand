@@ -249,3 +249,22 @@ signups + WTP actually being captured. Both remaining plug-ins from `landing/REA
 - **Next:** per-subreddit Reddit post drafts → warm up FB groups + a Hands & Voices contact → run
   outreach with the sharper page + Mom-Test interview script → read signups-by-`?ref=` channel vs. the
   Go/Pivot/Kill thresholds.
+
+---
+
+## 2026-07-23 (cont.) — Signs-of-Life validation plan: book-a-call test
+
+Ran the Half Baked "Signs of Life" validation-coach frame. Founder chose a **no-money interest test**
+(not a paid ask) for this week — coach flagged the tradeoff: this reads INTEREST, not DEMAND/WTP (the #1
+risk stays open); treat it as the precursor to a payment test, not the verdict.
+
+- **Active test:** SOURCE = $75 parent-audience ads + warm FB groups / Hands & Voices · DESTINATION =
+  live demo → **book a 15-min founding call** · OFFER = founding-parent call (their calendar, not money)
+  · **KPI = calls booked AND held.**
+- **Pre-committed pass bar:** 600 reached → 90 to demo → 45 complete a sign → 10 booked → **5 held calls
+  in 7 days**, and **≥3 of those parents already spend real money** on learning to sign (forced WTP proxy).
+- **Built:** reworked `landing/index.html` CTA — primary **"Book my 15-min founding call"** card (Calendly
+  placeholder `CALENDLY_URL_HERE`, `book_call` analytics event, `?ref`→`utm_source` passthrough, graceful
+  fallback to the waitlist if the placeholder isn't swapped); demoted the waitlist to a secondary
+  "Can't do a call right now?" catch (email + pricing probe retained).
+- **Owed from user:** a Calendly/Cal.com link to replace the placeholder; then run the ads.

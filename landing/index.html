@@ -213,8 +213,18 @@
   <!-- Signup + pricing probe (the demand test) -->
   <section id="join">
     <div class="wrap">
+      <!-- PRIMARY ask: book a founding call (the strong-signal, no-money KPI) -->
+      <div class="card" id="call-card" style="text-align:center;margin-bottom:22px">
+        <span class="eyebrow">Founding parents wanted</span>
+        <h2 style="text-align:center">Help shape it — grab a founding call</h2>
+        <p class="hint" style="margin-bottom:20px">15 minutes, over video. Tell us how you're learning to sign with your child, and what would actually help. You'll get <strong>first access</strong> when the beta opens — and a founding parent's say in what we build.</p>
+        <a class="cta" id="book-call" href="CALENDLY_URL_HERE" target="_blank" rel="noopener" style="display:block;text-decoration:none">📅 Book my 15-min founding call →</a>
+        <p class="privacy">No pitch — just 15 minutes to listen. Pick any time that works for you.</p>
+      </div>
+
+      <!-- SECONDARY catch: waitlist for those who can't hop on a call now -->
       <div class="card" id="join-card">
-        <h2>Start signing with your child</h2>
+        <h2>Can't do a call right now?</h2>
         <p class="hint">Join the early list — and tell us which of your child's first words you want to learn. We'll email you when the beta opens.</p>
 
         <!-- One submit captures: email + which-plan (consumer WTP) + the B2B/grant arm. -->
@@ -287,6 +297,23 @@
       ref = ref || 'direct';
       var refField = document.getElementById('ref-field');
       if (refField) refField.value = ref;
+
+      // Primary CTA: book-a-call. Track the click and pass attribution to the booking tool.
+      var bookBtn = document.getElementById('book-call');
+      if (bookBtn) {
+        bookBtn.addEventListener('click', function (e) {
+          var href = bookBtn.getAttribute('href');
+          // placeholder not yet swapped -> don't 404; drop them to the waitlist instead
+          if (!href || href.indexOf('CALENDLY_URL_HERE') !== -1) {
+            e.preventDefault();
+            var card = document.getElementById('join-card');
+            if (card) card.scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+          if (window.va) va('event', { name: 'book_call', data: { ref: ref } });
+          try { var u = new URL(href); u.searchParams.set('utm_source', ref); bookBtn.setAttribute('href', u.toString()); } catch (e2) {}
+        });
+      }
 
       function showError(message) {
         var existing = form.querySelector('.form-error');
