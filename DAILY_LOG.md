@@ -222,3 +222,8 @@ signups + WTP actually being captured. Both remaining plug-ins from `landing/REA
   updated title + OG for link previews. Kept the waitlist + pricing probe + ?ref tracking untouched.
 - **Still open from this feedback:** fix "milk" instructions in the demo (both #2 & #3); Mom Test audit
   of the `OUTREACH_KIT.md` interview script (#3); domain/rebrand decision `talkingtohands.com` (#3, user).
+- ✅ **Fixed "milk" (and all) sign instructions** in `landing/demo.html` (the other convergent signal,
+  #2 + #3): added a "How to sign it" step guide to each sign showing the motion with hand emojis
+  (milk: ✋→✊→✋→✊), a plain-language caption, and an explicit "🍼 is just the word; your hands make the
+  sign" note. Corrected the milk caption to match the detector (hand held **horizontal / palm down**,
+  not vertical). #2 → 🟢 actioned; #3 → 🟡 (Mom Test audit + domain decision remain).

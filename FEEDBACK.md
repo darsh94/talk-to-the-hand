@@ -16,9 +16,10 @@ what **type** it is, and what we **did** about it. Newest at the top. Feeds prod
 | 1 | 2026-07-20 | Early tester (competition) | 🐛 + 👍 | Demo great; camera-flip ×2 silently kills hand detection | 🟢 actioned |
 
 > **⚠️ Convergent signals (2+ independent sources) — highest priority:**
-> - **"Milk" instructions unclear** — #2 (Udit) + #3 (Rob). Fix the demo's "how to sign it" reference.
-> - **Site is too solution-focused; unclear who it's for** — #2 (Udit) + #3 (Rob). Reframe around the
->   problem + the customer (parents of deaf kids).
+> - ✅ **"Milk" instructions unclear** — #2 (Udit) + #3 (Rob) → **fixed** 2026-07-23: added a "How to
+>   sign it" step guide (hand-emoji motion) to every sign, with a "🍼 is just the word" note.
+> - ✅ **Site too solution-focused; unclear who it's for** — #2 + #3 → **fixed** 2026-07-23: landing
+>   reframed problem-first / customer-first.
 
 ---
 
@@ -62,9 +63,9 @@ what **type** it is, and what we **did** about it. Newest at the top. Feeds prod
 - **Action taken (2026-07-23):** ✅ **Landing page reframed problem-first / customer-first** — new hero
   ("Your child is learning to sign. Learn to sign back."), tech "how it works" steps replaced by 3
   emotional parent pain points, AI demoted to one credibility line, CTA + title/OG updated
-  (`landing/index.html`). ⬜ Still pending: Mom Test audit of the interview script; "milk" instructions
-  fix (shared w/ #2); domain/rebrand decision (`talkingtohands.com`).
-- **Status:** 🟡 in progress
+  (`landing/index.html`). ✅ "Milk"/all-sign instructions fixed — added "How to sign it" motion guides.
+  ⬜ Still pending: Mom Test audit of the interview script; domain/rebrand decision (`talkingtohands.com`).
+- **Status:** 🟡 in progress (Mom Test audit + domain decision remain)
 
 ### #2 — 2026-07-23 · Positioning + "show the sign" gaps
 
@@ -99,9 +100,10 @@ what **type** it is, and what we **did** about it. Newest at the top. Feeds prod
      candidate A/B later. → parked-by-design (revisit post-test).
   4. 🎨 **"Make the tech sound as cool as it is"** — easy win: add an AI/CV capability line. → do it.
 - **Action taken (2026-07-23):** ✅ Landing reframed problem/customer-first (points 2 & 4 — the tech now
-  reads as one confident credibility line, not the lead). Point 3 (broaden) parked-by-design.
-  ⬜ Point 1 ("milk" shows bottle, not the sign) still pending — shared fix with #3.
-- **Status:** 🟡 in progress
+  reads as one credibility line). ✅ Point 1 fixed — added a "How to sign it" step guide (hand-emoji
+  motion) to each sign in the demo, with an explicit "🍼 is just the word" note. Point 3 (broaden)
+  parked-by-design (revisit post-test).
+- **Status:** 🟢 actioned (broaden parked by design)
 
 ### #1 — 2026-07-20 · Camera-flip kills detection
 - **Who / source:** Early tester via the Half Baked competition (build-in-public feedback)
