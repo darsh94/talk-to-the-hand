@@ -59,8 +59,12 @@ what **type** it is, and what we **did** about it. Newest at the top. Feeds prod
     strategic/brand call for the user. → decision pending.
   - **Broaden vs. narrow** — Rob *reinforces the parent-first focus* (unlike Udit's "why just parents");
     good — confirms keeping the parent beachhead for the test.
-- **Action taken:** _pending — synthesis + recommendations 2026-07-23._
-- **Status:** 🔴 open
+- **Action taken (2026-07-23):** ✅ **Landing page reframed problem-first / customer-first** — new hero
+  ("Your child is learning to sign. Learn to sign back."), tech "how it works" steps replaced by 3
+  emotional parent pain points, AI demoted to one credibility line, CTA + title/OG updated
+  (`landing/index.html`). ⬜ Still pending: Mom Test audit of the interview script; "milk" instructions
+  fix (shared w/ #2); domain/rebrand decision (`talkingtohands.com`).
+- **Status:** 🟡 in progress
 
 ### #2 — 2026-07-23 · Positioning + "show the sign" gaps
 
@@ -94,8 +98,10 @@ what **type** it is, and what we **did** about it. Newest at the top. Feeds prod
      converts + it's the health-equity wedge); log as a strong signal that broadening resonates —
      candidate A/B later. → parked-by-design (revisit post-test).
   4. 🎨 **"Make the tech sound as cool as it is"** — easy win: add an AI/CV capability line. → do it.
-- **Action taken:** _pending — see recommendations discussion 2026-07-23._
-- **Status:** 🔴 open
+- **Action taken (2026-07-23):** ✅ Landing reframed problem/customer-first (points 2 & 4 — the tech now
+  reads as one confident credibility line, not the lead). Point 3 (broaden) parked-by-design.
+  ⬜ Point 1 ("milk" shows bottle, not the sign) still pending — shared fix with #3.
+- **Status:** 🟡 in progress
 
 ### #1 — 2026-07-20 · Camera-flip kills detection
 - **Who / source:** Early tester via the Half Baked competition (build-in-public feedback)

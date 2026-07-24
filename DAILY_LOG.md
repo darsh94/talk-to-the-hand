@@ -206,3 +206,19 @@ signups + WTP actually being captured. Both remaining plug-ins from `landing/REA
 - ⬜ Warm up FB parent groups + a Hands & Voices chapter; then run outreach
 - ⬜ Read signups-by-channel vs. the locked Go/Pivot/Kill thresholds → viability decision
 - 🧹 Housekeeping: stale merged remote branch `claude/repo-status-5zpjxb` can be deleted.
+
+---
+
+## 2026-07-23 — Feedback intake + problem-first landing reframe
+
+- Created **`FEEDBACK.md`** — structured feedback log (who / verbatim / type / action / status) with a
+  convergent-signals callout for issues raised by 2+ independent sources.
+- Logged **#2 (Udit Parikh)** and **#3 (Rob Neal)**. Convergent signals: (a) "milk" instructions
+  unclear, (b) site too solution-focused / who-it's-for unclear.
+- ✅ **Reframed `landing/index.html` problem-first / customer-first** (acting on #2 + #3): new hero
+  "Your child is learning to sign. Learn to sign back."; removed the tech "how it works" steps and
+  replaced with 3 emotional parent pain points (racing ahead / freezing in the moment / looking
+  unsure); demoted the AI to a single credibility line; reframed CTA ("Start signing with your child");
+  updated title + OG for link previews. Kept the waitlist + pricing probe + ?ref tracking untouched.
+- **Still open from this feedback:** fix "milk" instructions in the demo (both #2 & #3); Mom Test audit
+  of the `OUTREACH_KIT.md` interview script (#3); domain/rebrand decision `talkingtohands.com` (#3, user).
