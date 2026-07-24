@@ -11,12 +11,58 @@ what **type** it is, and what we **did** about it. Newest at the top. Feeds prod
 ## Index
 | # | Date | Who / Source | Type | Summary | Status |
 |---|------|--------------|------|---------|--------|
+| 3 | 2026-07-23 | Rob Neal (mentor / personal network) | 📊 + 🎨 | Reframe site around PROBLEM + CUSTOMER (not the AI solution); adopt *The Mom Test* for interviews; domain `talkingtohands.com`; milk instructions unclear (again) | 🔴 open |
 | 2 | 2026-07-23 | Udit Parikh (personal network) | 🎨 + 📊 + 👍 | Tech great; "milk" shows bottle not the sign; unclear who it's for; broaden audience?; punch up tech copy | 🔴 open |
 | 1 | 2026-07-20 | Early tester (competition) | 🐛 + 👍 | Demo great; camera-flip ×2 silently kills hand detection | 🟢 actioned |
+
+> **⚠️ Convergent signals (2+ independent sources) — highest priority:**
+> - **"Milk" instructions unclear** — #2 (Udit) + #3 (Rob). Fix the demo's "how to sign it" reference.
+> - **Site is too solution-focused; unclear who it's for** — #2 (Udit) + #3 (Rob). Reframe around the
+>   problem + the customer (parents of deaf kids).
 
 ---
 
 ## Entries
+
+### #3 — 2026-07-23 · Reframe around problem + customer; fix how you ask for feedback
+- **Who / source:** Rob Neal (personal network — startup/marketing mentor). Voice memo → speech-to-text.
+- **Type:** 📊 demand/positioning + 🎨 marketing/process (+ small 🐛 product note)
+- **Feedback (key points; condensed from a spoken transcript):**
+  1. **Obsess over the PROBLEM, not the solution.** *"Your website is mostly focused around the
+     solution [the AI that tracks your hands]… your customers don't care. You want to obsess and talk
+     a lot about the problem — learning how to talk with your hands for your little one."*
+  2. **Obsess over the CUSTOMER: parents of deaf kids.** *"Be more obsessed with your customer than
+     your product. The problem is learning sign language (aka talk to hands); who it is: parents with
+     children who are deaf."* Clear customer → clearer ask for intros (*"do you know anyone with someone
+     deaf in their life trying to learn to communicate with them?"*).
+  3. **Brand vs. category:** *"Talking To Hands"* is just branding around ASL (like Frosted Flakes vs.
+     "frosted corn flakes"); the real focus is the problem = learning sign language. Suggests grabbing
+     the domain **`talkingtohands.com`** (preferred "Talking With Hands" but taken since 2012).
+  4. **Reposition around the top pain points** parents hit learning ASL — find the top ~10, lead with
+     the top 3, thread the rest down the page.
+  5. **Fix how you ask for feedback — read *The Mom Test*.** *"Right now you're asking people to lie to
+     you… tell you how awesome your product is."* Instead ask about current behavior: *"How are you
+     currently solving this? What are you currently paying for it?"* → reveals if it's a real, painful,
+     **payable** problem. Also refs *Buyer Personas*, *Demand-Side Sales*, patternsandmarketing.com.
+  6. **Positioning > product:** people must believe it's worth their *time* (to use) and *money* (to
+     buy). *"Cure for cancer dressed like they're homeless — you wouldn't believe them; put them in a
+     lab coat…"* Lead by talking about their problem confidently; skip your solution and your hard work.
+  7. **Product note (marketing aside):** *"I love you is good. I got stuck on milk — instructions
+     weren't as clear."* Curious how difficulty/curriculum progresses. (Didn't deep-test the product.)
+- **Read / decisions:**
+  - Reframe landing copy **problem-first + customer-first**, de-emphasize the AI/coach mechanics —
+    strong, and *converges with #2*. → act (propose new copy for review).
+  - **Adopt Mom Test framing** — our `OUTREACH_KIT.md` interview script already leans this way (asks
+    current tools/spend, avoids "would you pay"), but audit it against the book's rules and tighten. → act.
+  - **Milk instructions** — same as #2; fix the "how to sign it" reference. → act.
+  - **Domain `talkingtohands.com`** + possible rebrand ("Talk to the Hand" → "Talking to Hands") —
+    strategic/brand call for the user. → decision pending.
+  - **Broaden vs. narrow** — Rob *reinforces the parent-first focus* (unlike Udit's "why just parents");
+    good — confirms keeping the parent beachhead for the test.
+- **Action taken:** _pending — synthesis + recommendations 2026-07-23._
+- **Status:** 🔴 open
+
+### #2 — 2026-07-23 · Positioning + "show the sign" gaps
 
 ### #2 — 2026-07-23 · Positioning + "show the sign" gaps
 - **Who / source:** Udit Parikh (personal network — likely WhatsApp/personal share; *not* a target parent)
