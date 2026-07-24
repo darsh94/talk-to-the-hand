@@ -11,7 +11,7 @@ what **type** it is, and what we **did** about it. Newest at the top. Feeds prod
 ## Index
 | # | Date | Who / Source | Type | Summary | Status |
 |---|------|--------------|------|---------|--------|
-| 3 | 2026-07-23 | Rob Neal (mentor / personal network) | 📊 + 🎨 | Reframe site around PROBLEM + CUSTOMER (not the AI solution); adopt *The Mom Test* for interviews; domain `talkingtohands.com`; milk instructions unclear (again) | 🔴 open |
+| 3 | 2026-07-23 | Rob Neal (mentor / personal network) | 📊 + 🎨 | Reframe site around PROBLEM + CUSTOMER (not the AI solution); adopt *The Mom Test* for interviews; domain `talkingtohands.com`; milk instructions unclear (again) | 🟢 actioned (rebrand parked) |
 | 2 | 2026-07-23 | Udit Parikh (personal network) | 🎨 + 📊 + 👍 | Tech great; "milk" shows bottle not the sign; unclear who it's for; broaden audience?; punch up tech copy | 🔴 open |
 | 1 | 2026-07-20 | Early tester (competition) | 🐛 + 👍 | Demo great; camera-flip ×2 silently kills hand detection | 🟢 actioned |
 
@@ -67,8 +67,11 @@ what **type** it is, and what we **did** about it. Newest at the top. Feeds prod
   ✅ **Mom Test audit** of the interview script done — removed the 3 hypothetical/"would-you-pay"
   questions, reframed to past behavior + currency (time/money already spent) + a commitment ask
   (email/deposit/intro); added a Mom Test rules primer (`OUTREACH_KIT.md` §3–4).
-  ⬜ Still pending: domain/rebrand decision (`talkingtohands.com`) — user's call.
-- **Status:** 🟡 in progress (only the domain/rebrand decision remains — user's call)
+  ✅ **Domain/rebrand decision (2026-07-23): PARKED.** Keep "Talk to the Hand" for now — a rename touches
+  the repo, live URL, analytics, and everything already shared (real switching cost) and doesn't change
+  what the demand test measures. Revisit branding *after* signup numbers justify the investment. (May
+  grab `talkingtohands.com` defensively later without committing to a rename.)
+- **Status:** 🟢 actioned (rebrand parked by decision)
 
 ### #2 — 2026-07-23 · Positioning + "show the sign" gaps
 

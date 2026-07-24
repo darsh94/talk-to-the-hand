@@ -234,3 +234,18 @@ signups + WTP actually being captured. Both remaining plug-ins from `landing/REA
   intro) as the real signal; added a Mom Test rules primer and a facts-over-opinions capture template.
 - Feedback round status: #1 🟢, #2 🟢, **#3 🟡** — only the domain/rebrand decision (`talkingtohands.com`)
   remains, which is the user's call.
+- ✅ **Decision — rebrand PARKED.** Keep "Talk to the Hand" for now; a rename (to "Talking to Hands" /
+  `talkingtohands.com`) has real switching cost (repo, live URL, analytics, everything already shared)
+  and doesn't change what the demand test measures. Revisit branding *after* signup numbers justify it.
+  → Feedback #3 now 🟢 actioned; **all three feedback items closed.**
+
+### End-of-session status (2026-07-23)
+- ✅ Feedback log stood up (`FEEDBACK.md`); 3 items logged, all actioned/closed.
+- ✅ Landing page reframed problem-first / customer-first; title + OG updated.
+- ✅ Demo: "How to sign it" guides added to all signs (fixes the milk confusion).
+- ✅ Interview script rewritten to be Mom-Test-clean.
+- ✅ Rebrand decision made (parked).
+- All committed + pushed to `main`; Vercel auto-deployed.
+- **Next:** per-subreddit Reddit post drafts → warm up FB groups + a Hands & Voices contact → run
+  outreach with the sharper page + Mom-Test interview script → read signups-by-`?ref=` channel vs. the
+  Go/Pivot/Kill thresholds.
