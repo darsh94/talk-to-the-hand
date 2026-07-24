@@ -268,3 +268,10 @@ risk stays open); treat it as the precursor to a payment test, not the verdict.
   fallback to the waitlist if the placeholder isn't swapped); demoted the waitlist to a secondary
   "Can't do a call right now?" catch (email + pricing probe retained).
 - **Owed from user:** a Calendly/Cal.com link to replace the placeholder; then run the ads.
+- ✅ **Closed the demo-tracking gap.** `landing/demo.html` had zero analytics — the middle of the
+  funnel was invisible. Added: the Vercel Web Analytics loader (demo page views now counted), a
+  `demo_started` event on camera start, and a `demo_completed` event (tagged with which sign + `?ref`)
+  fired once per completion via the shared `celebrate()` choke point. Full funnel now measurable:
+  visit (Vercel) → demo_started/demo_completed (Vercel) → book_call (Vercel) → booking (Cal.com) →
+  held (manual/Cal.com); waitlist via signup event + Formspree. Data spans Vercel + Cal.com + Formspree
+  (+ Meta for ads) — no single dashboard, fine for a 1-week test.

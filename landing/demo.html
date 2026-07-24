@@ -8,6 +8,9 @@
   <!-- attribution: if someone lands here first via ?ref=, stash it so the waitlist form on the
        landing page still captures which channel they came from -->
   <script>try{var _r=new URLSearchParams(location.search).get('ref');if(_r)sessionStorage.setItem('tth_ref',_r);}catch(e){}</script>
+  <!-- Vercel Web Analytics — demo funnel (page views + demo_started / demo_completed events) -->
+  <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
     :root {
       --ink:#1c2230; --muted:#5b6472; --brand:#2f6df6; --brand-dark:#1f52c9;
@@ -349,8 +352,14 @@
         els.confettiLayer.appendChild(s);
       }
     }
+    // analytics: attribution + funnel events. The demo is the MIDDLE of the funnel,
+    // so we track "started camera" and "completed a sign" (tagged with sign + ?ref).
+    const demoRef=(()=>{try{return new URLSearchParams(location.search).get('ref')||sessionStorage.getItem('tth_ref')||'direct';}catch(e){return 'direct';}})();
+    let startedTracked=false;
+    function track(name,extra){try{if(window.va)window.va('event',{name:name,data:Object.assign({ref:demoRef},extra||{})});}catch(e){}}
     function celebrate(sign){
       playChime(); burstConfetti(); markMastered(sign);
+      track('demo_completed',{sign:sign});
       els.videocard.classList.remove('celebrate'); void els.videocard.offsetWidth;
       els.videocard.classList.add('celebrate');
     }
@@ -616,6 +625,7 @@
         await openCamera(currentFacing);
         els.placeholder.style.display='none';
         running=true;
+        if(!startedTracked){ startedTracked=true; track('demo_started'); }
         lastHandTime=performance.now();
         els.status.textContent='Live · your video never leaves this browser';
         els.startBtn.textContent='Camera running';
