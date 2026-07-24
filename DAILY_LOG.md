@@ -275,3 +275,10 @@ risk stays open); treat it as the precursor to a payment test, not the verdict.
   visit (Vercel) → demo_started/demo_completed (Vercel) → book_call (Vercel) → booking (Cal.com) →
   held (manual/Cal.com); waitlist via signup event + Formspree. Data spans Vercel + Cal.com + Formspree
   (+ Meta for ads) — no single dashboard, fine for a 1-week test.
+- ✅ **Brand assets + social/link-preview polish** (for the Meta campaign / FB Page): generated a 🤟 logo
+  (`brand/logo.png`, 1024²), FB cover (`brand/cover.png`, 1640×624), an OG social card
+  (`landing/og.png`, 1200×630) and favicon (`landing/favicon.png`) via headless Chrome. Wired
+  `og:image` + `twitter:card` + favicon into `index.html` and `demo.html` so link previews (e.g. the
+  FB intro post's demo link) render a proper card. FB Page live at facebook.com/TalkToTheHandASL
+  (username set); logo/cover/bio/intro-post in place. Note: emoji-based mark = fine for the test, not
+  an original trademark.
