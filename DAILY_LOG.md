@@ -227,3 +227,10 @@ signups + WTP actually being captured. Both remaining plug-ins from `landing/REA
   (milk: ✋→✊→✋→✊), a plain-language caption, and an explicit "🍼 is just the word; your hands make the
   sign" note. Corrected the milk caption to match the detector (hand held **horizontal / palm down**,
   not vertical). #2 → 🟢 actioned; #3 → 🟡 (Mom Test audit + domain decision remain).
+- ✅ **Mom Test audit of the interview script** (feedback #3, Rob): rewrote `OUTREACH_KIT.md` §3–4 —
+  cut the 3 Mom-Test-violating questions (hypothetical "would this help?", "would you still want it?",
+  and "what would you pay?"), reframed everything to **past behavior + currency** (money/time already
+  spent, what they've actually paid for) and a **commitment ask** (paid-pilot spot / email / deposit /
+  intro) as the real signal; added a Mom Test rules primer and a facts-over-opinions capture template.
+- Feedback round status: #1 🟢, #2 🟢, **#3 🟡** — only the domain/rebrand decision (`talkingtohands.com`)
+  remains, which is the user's call.

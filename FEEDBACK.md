@@ -64,8 +64,11 @@ what **type** it is, and what we **did** about it. Newest at the top. Feeds prod
   ("Your child is learning to sign. Learn to sign back."), tech "how it works" steps replaced by 3
   emotional parent pain points, AI demoted to one credibility line, CTA + title/OG updated
   (`landing/index.html`). ✅ "Milk"/all-sign instructions fixed — added "How to sign it" motion guides.
-  ⬜ Still pending: Mom Test audit of the interview script; domain/rebrand decision (`talkingtohands.com`).
-- **Status:** 🟡 in progress (Mom Test audit + domain decision remain)
+  ✅ **Mom Test audit** of the interview script done — removed the 3 hypothetical/"would-you-pay"
+  questions, reframed to past behavior + currency (time/money already spent) + a commitment ask
+  (email/deposit/intro); added a Mom Test rules primer (`OUTREACH_KIT.md` §3–4).
+  ⬜ Still pending: domain/rebrand decision (`talkingtohands.com`) — user's call.
+- **Status:** 🟡 in progress (only the domain/rebrand decision remains — user's call)
 
 ### #2 — 2026-07-23 · Positioning + "show the sign" gaps
 

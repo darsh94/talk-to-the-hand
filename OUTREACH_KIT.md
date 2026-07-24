@@ -71,41 +71,55 @@ Live link to share: **https://talk-to-the-hand.vercel.app**
 
 **Recruit** from the same channels ("15 min, no pitch, I'll listen"). Aim for **5–10 interviews.**
 
+> **Mom Test rules (per feedback #3 — Rob Neal):** talk about **their life & past behavior**, never your
+> idea or the future. You're getting *lies* whenever you hear: compliments, "I would…", "I usually…", or
+> a "yes" to *"would you use / pay for this?"*. Real signal = **specifics + currency** (time/money already
+> spent) and **commitments** (email, intro, deposit). Ask, then shut up — silence pulls out the truth.
+
 ### Intro / consent (30 sec)
-> Thanks for the time. I'm learning how parents practice ASL — there are no right answers, and I'm not
-> selling anything today. Mind if I take notes? Feel free to be totally blunt.
+> Thanks for the time. I'm trying to understand how parents learn to sign with their kids — I'm **not
+> selling anything**, and the most useful thing you can do is be blunt. Mind if I take notes?
 
-### Their world (context)
-1. Tell me about your journey learning to sign with your child — where are you now?
-2. What are you using today? (early intervention? a Deaf mentor program? apps? YouTube? classes?)
-3. What's the hardest part of practicing at home?
+### Their world & what they actually do *(past behavior, not opinions)*
+1. Take me back — how did you start learning to sign for your child? Walk me through it.
+2. What does practice actually look like week to week? **When did you last sit down to practice — what happened?**
+3. What are you using to learn (mentor program, classes, apps, YouTube)? Which do you *actually* open?
+4. **What has this cost you so far — money *and* time?** Paid for any app, class, or tutor? ← *currency = the realest signal*
 
-### The problem (validate the "Mirror Limit")
-4. When you practice alone, how do you know if you're signing it *correctly*?
-5. Has "not knowing if I'm doing it right" ever slowed you down or discouraged you?
+### The frustration *(specific instances, not generic gripes)*
+5. What's the most frustrating part of where you are now? **Tell me about the last time that bit you.**
+6. When you practice alone, how do you know if you signed it right — and what do you do when you're not sure?
 
-### The WTP crux ⭐ (the most important part)
-6. If a tool watched your hands and gave you gentle feedback + practice, would that help? How?
-7. **You likely have access to a free Deaf mentor / early-intervention support. Given that, would you
-   still want something like this? What would it need to do to be worth it *alongside* those?**
-8. If it genuinely helped, what feels fair — free, a few dollars a month, or something you'd expect your
-   program/school to provide? (Listen for: consumer WTP vs. "should be free/through my program.")
+### Free alternatives — the WTP crux *(behavior, not "would you")*
+7. You've got [a free Deaf mentor / early-intervention]. What does it give you — and where does it fall
+   short *between* sessions?
+8. When you've hit a wall, what have you actually **done** about it — searched, paid for something, asked
+   someone, or let it go?
 
-### Demo reaction (if live)
-9. *(Share the link, let them try it.)* What's your gut reaction? What's missing or confusing?
-10. Whose "first words" would you most want to practice? (probes the real vocabulary need)
+### Demo → commitment *(the real test, not "do you like it")*
+9. *(Let them try the demo. Say nothing. Watch where they get stuck.)* Talk me through what you're thinking.
+10. If I open a small **paid pilot** in a month, do you want a spot? *(Then gauge real commitment: their
+    email now? a small refundable deposit? — a polite "sounds great" is nothing; a yes with their
+    calendar or wallet is everything.)*
+11. Who else living this should I talk to? *(An intro is one of the strongest signals there is.)*
 
 ### Close
-> This was hugely helpful. Anything I should have asked but didn't? — And may I follow up when there's
-> more to show?
+> This was gold. Anything I should've asked but didn't? Can I follow up when there's more to show?
 
 ---
 
 ## 4. What to capture (for the Go/Pivot/Kill read)
 
-Per interview, log: current tools used · biggest pain · **would they want it despite free options (Y/N +
-why)** · **WTP signal** (free-only / would-pay / "through my program") · vocabulary they most want ·
-demo reaction. Roll these up against `PROJECT.md` §Success metrics after the run window.
+Per interview, log **facts over opinions**:
+- **Current tools** they actually use (and which they've abandoned)
+- **Currency already spent** — $ and hours/week; anything they've *paid* for ← strongest signal
+- **Specific frustration** (the last-time-it-bit-them story) + how they cope today
+- **Gap vs. free alternatives** — what the mentor / early-intervention *doesn't* cover between sessions
+- **Commitment secured** — email / deposit / intro (real advancement), *not* "they liked it"
+- Vocabulary they most want; demo sticking points
+
+Roll up against `PROJECT.md` §Success metrics. **Weight commitments and past spend far above stated
+enthusiasm** — enthusiasm is exactly the thing The Mom Test warns is worthless.
 
 ---
 
