@@ -16,7 +16,8 @@ Live link to share: **https://talk-to-the-hand.vercel.app**
 3. **Respect the Deaf community.** Frame as a **practice aid *between* mentor visits — not a replacement
    for Deaf teachers/mentors.** Avoid "hearing-savior" language. If Deaf members push back, listen.
 4. **It's free.** The test is a waitlist + free demo. Don't over-promise features that don't exist yet.
-5. **No Reddit for now** (per plan). Channels: Facebook parent groups + Hands & Voices chapters.
+5. ~~No Reddit for now~~ **Reddit is open** (playbook in §6, ready-to-post drafts in §7). Warm up
+   the account first; ICP subs (r/asl etc.) and maker subs (r/SideProject etc.) are separate tracks.
 
 ---
 
@@ -149,9 +150,36 @@ Append a unique tag to the link so Vercel Analytics' referrer/UTM view tells you
 ask and I'll wire it.)
 
 ### Reddit
-**Where:** r/asl and r/ASL (learners — most receptive), r/deaf (protective — read rules, consider
-messaging mods first), r/HardOfHearing, r/slp (speech-language pathologists), r/ECEProfessionals /
-r/Teachers (educators). Adjacent: r/parenting, baby-sign threads.
+**Where (target-customer / ICP — highest-signal for the validation test):** r/asl and r/ASL
+(learners — most receptive), r/deaf (protective — read rules, consider messaging mods first),
+r/HardOfHearing, r/slp (speech-language pathologists), r/ECEProfessionals / r/Teachers (educators).
+Adjacent: r/parenting, baby-sign threads.
+
+**Where (maker / build-in-public / launch — traffic + feedback, NOT ICP):** these reach founders,
+indie hackers, and AI/app builders — great for a "I built this, would love feedback" post and raw
+traffic, but the visitors are *not* parents of deaf children, so **tag them distinctly and read their
+signups separately** — don't let maker-curiosity signups dilute the Go/Pivot/Kill WTP read (see caveat
+below). Post one at a time, rewrite copy per sub, and lead with the demo, not a pitch.
+
+| Subreddit | ~Monthly visitors | `?ref=` tag |
+|---|---|---|
+| r/ClaudeAI | 6.8M+ | `reddit_claudeai` |
+| r/vibecoding | 1.9M+ | `reddit_vibecoding` |
+| r/passive_income | 1.5M+ | `reddit_passive_income` |
+| r/SideProject | 1.4M+ | `reddit_sideproject` |
+| r/Entrepreneur | 1.1M+ | `reddit_entrepreneur` |
+| r/startups | 500K+ | `reddit_startups` |
+| r/marketing | 280K+ | `reddit_marketing` |
+| r/apps | 208K+ | `reddit_apps` |
+| r/founder | 204K+ | `reddit_founder` |
+| r/micro_saas | 196K+ | `reddit_micro_saas` |
+| r/macapps | 144K+ | `reddit_macapps` |
+| r/microsaas | 100K+ | `reddit_microsaas` |
+| r/IMadeThis | 52K+ | `reddit_imadethis` |
+| r/iOSAppsMarketing | 52K+ | `reddit_iosappsmarketing` |
+| r/appledevelopers | 26K+ | `reddit_appledevelopers` |
+| r/juststart | 18K+ | `reddit_juststart` |
+| r/SaaSMarketing | 10K+ | `reddit_saasmarketing` |
 
 **How:**
 - Use an **aged account with some karma** — fresh accounts get auto-removed.
@@ -180,3 +208,92 @@ a **Deaf advisor**. This protects the brand *and* gets you truer feedback.
 ### Cadence
 1–2 channels/day, not a blast. Watch signups-by-`ref`, double down on what converts, and log dropped/
 banned posts so "we tried everywhere" doesn't hide a channel that never actually ran.
+
+---
+
+## 7. Reddit post drafts (ready to adapt — never paste identical text across subs)
+
+Each draft has its `?ref=` link baked in. Post weekday mornings ET. Reply to every comment.
+
+### 7a. r/SideProject — build-in-public + validation story
+
+**Title:** I built a webcam ASL coach that grades your hand shape in real time — now I'm validating
+willingness-to-pay before building more
+
+> My thesis: ASL apps hit a "Mirror Limit" — they show you a video of the sign, you copy it into your
+> webcam or a mirror, and... nothing tells you if you're actually doing it right.
+>
+> So I built a coach instead of a mirror. It runs entirely in the browser (MediaPipe hand tracking, no
+> GPU, nothing uploaded), watches your hand, and gives live feedback — "so close, lift your pinky 🤙".
+> It even grades *moving* signs: for "milk" it counts your open-close squeezes 🍼.
+>
+> Try it (free, ~30 seconds, needs a webcam): https://talk-to-the-hand.vercel.app/?ref=reddit_sideproject
+>
+> The part I'd love feedback on: I'm deliberately **not** building more product yet. The target buyer
+> (hearing parents of deaf kids) has free state-subsidized alternatives, so before writing more code I'm
+> running a validation test — landing page → demo → book-a-call funnel, with pre-committed go/pivot/kill
+> thresholds. If parents won't commit 15 minutes, they won't commit $15/mo.
+>
+> Happy to share the validation setup, the hand-tracking approach, or anything else. Roast welcome.
+
+### 7b. r/ClaudeAI — the built-with-Claude story
+
+**Title:** Built a real-time ASL coach with Claude Code — in-browser hand tracking, motion-sign
+detection, and it debugged a camera bug I couldn't see
+
+> Sharing a project built almost entirely with Claude Code: a webcam ASL coach that gives live feedback
+> on your signing (not just showing you a video to copy). All in-browser — MediaPipe hand landmarks +
+> geometric heuristics Claude wrote (finger extended = fingertip farther from wrist than its middle
+> joint), no GPU, nothing uploaded.
+>
+> The parts Claude did that impressed me:
+> - **Motion signs, not just static poses.** For "milk" (open-close squeeze) it designed a continuous
+>   "hand openness" measure driving a state machine that counts reps, gated on palm orientation so a
+>   waving open hand doesn't false-trigger.
+> - **A bug I'd never have found:** flipping the phone camera twice silently killed detection while the
+>   UI looked fine. Claude traced it to `detectForVideo()` throwing on the brief 0×0 frame during the
+>   camera swap — the throw happened before the next `requestAnimationFrame`, so the loop died
+>   permanently. Fix: guard the frame, always reschedule.
+> - Wrote synthetic-hand-pose unit tests for the detection math when the sandbox couldn't access a camera.
+>
+> Live demo (free): https://talk-to-the-hand.vercel.app/?ref=reddit_claudeai — try "milk", it's the
+> fun one. Happy to answer anything about the workflow.
+
+### 7c. r/vibecoding — shorter, demo-first
+
+**Title:** Vibe-coded a sign-language coach that watches your webcam and tells you if you're signing
+right (try it, it's free)
+
+> No ML training, no GPU, no backend — MediaPipe hand landmarks + geometry, all in the browser.
+> It coaches you through real ASL signs with live feedback and counts your reps on the moving ones.
+>
+> https://talk-to-the-hand.vercel.app/?ref=reddit_vibecoding
+>
+> Took a weekend to get the first sign working and weeks of tuning thresholds so it doesn't
+> false-trigger. Now testing whether the target market will actually pay before building more.
+> Feedback (or roasts) very welcome.
+
+### 7d. r/asl — ICP, feedback-first (⚠️ read sub rules first; this is a *feedback ask*, not a launch)
+
+**Title:** I made a free practice tool that gives live feedback on your handshape — is this actually
+useful, or a miss?
+
+> When I practice a sign, I can copy a video into a mirror, but nothing tells me if my handshape is
+> actually right. So I built a free browser tool that watches through the webcam and coaches in real
+> time — e.g. for ILY it checks each finger and says things like "so close — lift your pinky."
+> Everything runs locally in the browser; no video is uploaded anywhere.
+>
+> It only knows a few first signs so far (ILY, MILK, YES), and I want to know if this direction is
+> even useful before going further — especially from people who actually sign. It's meant as practice
+> *between* real instruction from Deaf teachers, never a replacement for it.
+>
+> https://talk-to-the-hand.vercel.app/?ref=reddit_asl
+>
+> Honest reactions welcome, including "this isn't it."
+
+### Posting notes
+- **Facebook parent groups:** use §1 Post A/B (unchanged — they already point at the landing page,
+  which now leads with the founding-call CTA).
+- One sub at a time, 1–2/day. If a post is removed, log it in `DAILY_LOG.md` and move on — don't repost.
+- The maker posts (7a–7c) feed the **Track B** bucket: their signups/refs are read separately and
+  never count toward the go/pivot/kill bar.

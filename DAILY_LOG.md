@@ -282,3 +282,34 @@ risk stays open); treat it as the precursor to a payment test, not the verdict.
   FB intro post's demo link) render a proper card. FB Page live at facebook.com/TalkToTheHandASL
   (username set); logo/cover/bio/intro-post in place. Note: emoji-based mark = fine for the test, not
   an original trademark.
+
+---
+
+## 2026-08-08 — Marketing execution plan + Reddit channel expansion + post drafts
+
+First session in ~2 weeks (last: 07-23). Everything was *built* but the test never *ran* — today was
+about removing every excuse between "funnel ready" and "outreach live."
+
+- **Expanded the Reddit channel list** in `OUTREACH_KIT.md` §6 with 17 maker/build-in-public subs
+  (r/SideProject, r/ClaudeAI, r/vibecoding, r/startups, r/Entrepreneur, …), each with its own `?ref=`
+  tag, in a traffic-sorted table. Deliberately split from the ICP subs (r/asl, parent groups) with an
+  explicit caveat: **maker-sub signups = Track B (traffic/feedback fuel), read in a separate bucket,
+  never counted toward the Go/Pivot/Kill bar** — the WTP question is only answered by parents.
+- **Drew up the 2-week viability marketing plan** (in-session): Phase 0 pre-flight (delete Formspree
+  test row, live Cal.com test booking, camera-flip re-check, Reddit account warm-up, FB group join
+  requests, Hands & Voices email, 60-sec MILK demo clip) → Phase 1 two parallel tracks (Track A: $75
+  Meta ads + FB parent groups + r/asl + H&V, KPI = calls booked/held; Track B: maker subs staggered
+  1–2/day) → Phase 2 Mom-Test calls with the currency question → Day-14 read vs. the locked thresholds.
+- **Drafted 4 ready-to-post Reddit posts** — new `OUTREACH_KIT.md` §7: r/SideProject (build-in-public +
+  validating-WTP-before-building angle), r/ClaudeAI (built-with-Claude story incl. the real 0×0-frame
+  camera bug from 07-20), r/vibecoding (short demo-first), r/asl (humble feedback-ask, explicitly not a
+  launch, "complement to Deaf teachers" framing). Each with its `?ref=` baked in.
+- Fixed the stale "No Reddit for now" ground rule in the kit (superseded by the 07-20 playbook).
+
+### Open / next (unchanged bottleneck: RUN the test)
+- ⬜ Phase 0 pre-flight: Formspree test-row delete, Cal.com live test booking, camera-flip re-check
+- ⬜ Start Reddit warm-up comments + FB group join requests (gates everything; approval takes days)
+- ⬜ Record 60-sec MILK demo clip (creative for ads + posts)
+- ⬜ First post: r/SideProject, weekday morning ET; then 1–2 channels/day per the plan
+- ⬜ Launch the $75 Meta ads (Track A)
+- ⬜ Read funnel daily; Day-14 Go/Pivot/Kill read (Track A only)
