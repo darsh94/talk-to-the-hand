@@ -313,3 +313,24 @@ about removing every excuse between "funnel ready" and "outreach live."
 - ⬜ First post: r/SideProject, weekday morning ET; then 1–2 channels/day per the plan
 - ⬜ Launch the $75 Meta ads (Track A)
 - ⬜ Read funnel daily; Day-14 Go/Pivot/Kill read (Track A only)
+
+### 🚀 Outreach LAUNCHED (same day, cont.)
+
+Wrote `REDDIT_POSTS.md` — one distinct post per channel (17 maker subs + r/asl), fit-tiered
+🟢/🟡/🔴, suggested posting order; `OUTREACH_KIT.md` §7 points to it. Then actually posted:
+
+- ✅ **r/SideProject** — posted (Track B, `?ref=reddit_sideproject`); title reworked to lead with
+  viability-as-a-profitable-product ("its competitor is free").
+  https://www.reddit.com/r/SideProject/comments/1vja8z2/
+- ✅ **r/ClaudeAI** — posted (Track B, `?ref=reddit_claudeai`). Sub gates: flair required + OP
+  karma>50 for feed posts (noted in-editor).
+- ✅ **r/asl — modmail sent first** (Track A). Sub rules have no explicit self-promo ban (only "No
+  spam" catch-all); one mod (u/Crookshanksmum) is a **Deaf ASL teacher** → asked permission before
+  posting; a reply from her = the Deaf-advisor input the kit calls for. Post goes up only on mod OK.
+- ✍️ **r/vibecoding** — first draft tripped the sub's AI rule-check (Rule 3 "no shilling", Rule 2
+  "dev tools must be approved"). Rewrote as v3: build-story-first with explicit Tools/Workflow
+  sections (Rule 3's fine print *welcomes* educational project posts). Bonus path found: Rule 2's
+  X-community submission → one sanctioned intro post + feature updates.
+
+**Watch now (daily):** Vercel Analytics visits by `?ref=` + `demo_started`/`demo_completed`;
+**reply to every Reddit comment fast** — early engagement drives ranking; log any removals here.

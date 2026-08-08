@@ -215,6 +215,10 @@ banned posts so "we tried everywhere" doesn't hide a channel that never actually
 
 Each draft has its `?ref=` link baked in. Post weekday mornings ET. Reply to every comment.
 
+> **📄 Full set: `REDDIT_POSTS.md`** has one distinct post for every channel in the §6 table
+> (17 maker subs + r/asl), fit-tiered 🟢/🟡/🔴, with a suggested posting order. The four below
+> are the originals, kept for reference.
+
 ### 7a. r/SideProject — build-in-public + validation story
 
 **Title:** I built a webcam ASL coach that grades your hand shape in real time — now I'm validating
