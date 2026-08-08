@@ -61,9 +61,23 @@ Positioning line: **"They give you a mirror. We give you a coach."**
   true hand-shape recognition/grading. ← our wedge.
 - **ASL Bloom** — AI assistant + 1,300+ signs; feedback is conversational, not CV-based pose grading.
 - **The ASL App, SignSchool, InterSign** — content/dictionary, minimal live feedback.
+- **Small Talk** (NEW — launched Jul 2026, logged 2026-08-08) — by Josh Staub, Disney animator
+  (Frozen/Tangled), built **with Deaf animators/consultants/engineers**. A 3D animated character
+  ("Oscar") demonstrates signs — rotatable to any angle, speed control, full facial expressions.
+  **Free forever** (public pledge), App Store + Microsoft Store, tied to an animated-series project.
+  **No camera, no grading** — the best-produced *mirror* in the market; our wedge applies verbatim.
+  Three real impacts: (1) **sharpens the free-alternative WTP risk** (add to interview objections);
+  (2) **sets the Deaf-collaboration credibility bar** — accelerates our need for a Deaf advisor;
+  (3) recently celebrated in r/asl → read that thread's comments before our post goes up, and have
+  the differentiation answer ready: *"Small Talk shows you the sign beautifully; my tool checks
+  YOUR hands as you try it. Complements — use both."* Also: it showcases facial expressions, which
+  our hand-only detector can't see — if raised, concede honestly (handshape practice aid, not an
+  ASL teacher).
 - **Takeaway:** Differentiation must be **real computer-vision feedback on hand pose** ("tuck your
   thumb," "spread your fingers," "you're 80% there") — the thing a mirror can't do. If we can't beat
-  a mirror on *specific corrective feedback*, we don't have a wedge.
+  a mirror on *specific corrective feedback*, we don't have a wedge. (Small Talk's polish, Deaf-built
+  team, and free-forever pledge reinforce: demonstration is commoditized at $0 — grading is the only
+  defensible layer.)
 
 ### Market sizing (grounded in research, 2026-07-12)
 - **New families/yr:** US births ~3.6M × **2–3 per 1,000** deaf/HH = **~7,000–11,000 new families/yr**,

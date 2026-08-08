@@ -334,3 +334,14 @@ Wrote `REDDIT_POSTS.md` — one distinct post per channel (17 maker subs + r/asl
 
 **Watch now (daily):** Vercel Analytics visits by `?ref=` + `demo_started`/`demo_completed`;
 **reply to every Reddit comment fast** — early engagement drives ranking; log any removals here.
+
+### Competitor alert — "Small Talk" (logged in PROJECT.md §Competitive landscape)
+
+Spotted via a recent r/asl thread: **Small Talk**, launched Jul 2026 by Disney animator Josh Staub
+(Frozen/Tangled), built with Deaf collaborators — a 3D character demonstrates signs (any angle,
+speed control, facial expressions), **free forever**, App Store + Microsoft Store. **No camera, no
+grading → our "mirror vs. coach" wedge survives intact** (it's the best mirror ever made). But it
+(1) sharpens the free-alternative WTP objection for founding calls, (2) raises the
+Deaf-collaboration credibility bar → Deaf advisor moves up the priority list (the r/asl modmail to
+u/Crookshanksmum, a Deaf ASL teacher, is now doubly important), (3) means our r/asl post lands in
+its shadow — read that thread's comments first; differentiation answer prepped in PROJECT.md.
