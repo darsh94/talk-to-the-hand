@@ -345,3 +345,12 @@ grading → our "mirror vs. coach" wedge survives intact** (it's the best mirror
 Deaf-collaboration credibility bar → Deaf advisor moves up the priority list (the r/asl modmail to
 u/Crookshanksmum, a Deaf ASL teacher, is now doubly important), (3) means our r/asl post lands in
 its shadow — read that thread's comments first; differentiation answer prepped in PROJECT.md.
+
+### First engagement (same evening)
+
+- **r/SideProject:** first substantive comment within the hour — asked for the actual go/pivot/kill
+  thresholds ("the part most people skip"). Replied with the full pass bar (600→90→45→10→5 held,
+  ≥3 already-spending parents), the why (past spend > hypothetical "would you pay"; call booking >
+  waitlist email as the currency), and the pivot/kill lines. Exactly the engagement the post was
+  designed to earn — the thresholds ARE the story for this audience.
+- Watch cadence from here: reply to every comment fast; Vercel `?ref=` read tomorrow morning.
